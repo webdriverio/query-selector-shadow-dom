@@ -6,9 +6,11 @@
     "scripts": {
         "prebuild": "mkdir dist",
         "build": "rollup -c",
+        "test:ci": "npm run -s test:build && npm run -s test:run-ci",
         "test": "npm run -s test:build && npm run -s test:run",
         "test:build": "rollup --format iife ./test/basic.js > dist/testbundle.js",
         "test:run": "karma start",
+        "test:run-ci": "karma start --config karma.env.config.js",
         "watch": "npm-watch"
     },
     "watch": {
