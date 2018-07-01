@@ -4,6 +4,7 @@
     "description": "",
     "main": "querySelectorDeep.js",
     "scripts": {
+        "prebuild": "mkdir dist",
         "build": "rollup -c",
         "test": "npm run -s test:build && npm run -s test:run",
         "test:build": "rollup --format iife ./test/basic.js > dist/testbundle.js",
