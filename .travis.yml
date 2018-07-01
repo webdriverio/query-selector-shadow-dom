@@ -10,6 +10,6 @@ cache:
   directories:
     - node_modules
 install:
-  - npm
+  - npm install
 script:
   - npm test
