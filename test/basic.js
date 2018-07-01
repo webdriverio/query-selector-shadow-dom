@@ -1,5 +1,5 @@
-import { TestComponent } from './TestComponent';
 import { querySelectorAllDeep, querySelectorDeep } from '../src/querySelectorDeep';
+import { createTestComponent, COMPONENT_NAME } from './createTestComponent';
 
 
 
@@ -25,10 +25,15 @@ describe("Basic Suite", function() {
     });
 
     it('can access an element in the light dom', function() {
-
+        createTestComponent(parent);
+        const testComponent = querySelectorDeep(COMPONENT_NAME);
+        expect(testComponent).toBeTruthy();
     });
 
     it('can access an element in the shadow dom', function() {
-
+        createTestComponent(parent);
+        const testSubComponent = querySelectorDeep('.test-child');
+        expect(testSubComponent).toBeTruthy();
+        expect(testSubComponent.textContent).toEqual('Test Component Content')
     });
 });

@@ -1,7 +1,7 @@
 export class TestComponent extends HTMLElement {
     connectedCallback() {
         this.createShadowRoot();
-        this.shadowRoot.innerHTML = '<p>Test Component</p>';
+        this.shadowRoot.innerHTML = '<p class="test-child">Test Component Content</p>';
     }
 
     add() {
