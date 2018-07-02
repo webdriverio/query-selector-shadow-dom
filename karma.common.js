@@ -28,8 +28,16 @@ module.exports = function(overrides, config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress'],
-
+        reporters: ['spec'],
+        specReporter: {
+            maxLogLines: 5, // limit number of lines logged per test
+            suppressErrorSummary: true, // do not print error summary
+            suppressFailed: false, // do not print information about failed tests
+            suppressPassed: false, // do not print information about passed tests
+            suppressSkipped: true, // do not print information about skipped tests
+            showSpecTiming: true, // print the time elapsed for each spec
+            failFast: true // test would finish with error when a first fail occurs. 
+        },
 
         // web server port
         port: 9876,

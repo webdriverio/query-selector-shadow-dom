@@ -1,13 +1,24 @@
 export class TestComponent extends HTMLElement {
-    connectedCallback() {
-        this.createShadowRoot();
-        this.shadowRoot.innerHTML = '<p class="test-child">Test Component Content</p>';
+
+    constructor({ childClassName = 'test-child', childTextContent = 'Child Content' } = {}) {
+        super();
+        this.childClassName = childClassName;
+        this.childTextContent = childTextContent;
+        this.style.display = 'block';
+        this.style.margin = '5px';
     }
 
-    add() {
-        const testComponent = new TestComponent();
-        this.shadowRoot.appendChild(testComponent);
-        return testComponent;
+    connectedCallback() {
+        this.createShadowRoot();
+        this.shadowRoot.innerHTML = `<p class="${this.childClassName}">${this.childTextContent}</p><slot></slot>`;
+    }
+
+    add(child) {
+        this.shadowRoot.appendChild(child);
+    }
+
+    addNested(child) {
+        this.shadowRoot.querySelector('p').appendChild(child);
     }
 }
 customElements.define('test-component', TestComponent);

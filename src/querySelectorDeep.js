@@ -25,16 +25,12 @@ export function querySelectorDeep(selector) {
     return _querySelectorDeep(selector);
 }
 
-function _querySelectorDeep(selector, findMany = false) {
-    let lightElement;
-    if (findMany) {
-        lightElement = document.querySelectorAll(selector);
-    } else {
-        lightElement = document.querySelector(selector);
-    }
+function _querySelectorDeep(selector, findMany) {
+    let lightElement = document.querySelector(selector);
+
     if (document.head.createShadowRoot || document.head.attachShadow) {
-        // no need to do any special if selector matches something in light-dom
-        if (lightElement) {
+        // no need to do any special if selector matches something specific in light-dom
+        if (!findMany && lightElement) {
             return lightElement;
         }
         // do best to support complex selectors and split the query
@@ -48,7 +44,11 @@ function _querySelectorDeep(selector, findMany = false) {
             return possibleElements.find(findElements);
         }
     } else {
-        return lightElement;
+        if (!findMany) {
+            return lightElement;
+        } else {
+            return document.querySelectorAll(selector);
+        }
     }
 
 }

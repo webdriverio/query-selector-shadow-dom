@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Testing</title>
+</head>
+
+<body>
+    <script>
+        (async() => {
+            const {
+                createTestComponent,
+                createNestedComponent,
+                createChildElements
+            } = await
+            import ('./createTestComponent.js');
+            const {
+                querySelectorAllDeep,
+                querySelectorDeep
+            } = await
+            import ('../src/querySelectorDeep.js');
+            const parent = document.createElement('div');
+            document.body.appendChild(parent);
+            const baseComponent = createTestComponent(parent, {
+                childClassName: 'base',
+                childTextContent: 'Base Component'
+            });
+            createTestComponent(baseComponent, count, {
+                childClassName: 'childy'
+            });
+
+
+
+            window.querySelectorAllDeep = querySelectorAllDeep;
+            window.querySelectorDeep = querySelectorDeep;
+        })();
+    </script>
+</body>
+
+</html>
