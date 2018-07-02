@@ -3,6 +3,14 @@
 # query-selector-shadow-dom
 querySelector that can pierce Shadow DOM roots without knowing the path through nested shadow roots. Useful for automated testing of Web Components e.g. with Selenium.
 
+
+```javascript
+
+import { querySelectorAllDeep, querySelectorDeep } from '../src/querySelectorDeep.js';
+
+
+```
+
 In the below examples the components being searched for are nested within web components `shadowRoots`.
 
 ```javascript
