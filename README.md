@@ -14,5 +14,5 @@ console.log(querySelectorDeep('#downloads-list div#title-area + a'));
 ```
 
 ## Importing
-Shipped as an ES6 module to be included using a bundler of your choice (or not)
-ES5 version bundled ontop the window as `window.querySelectorShadowDom` available for easy include into a test framework
+- Shipped as an ES6 module to be included using a bundler of your choice (or not).
+- ES5 version bundled ontop the window as `window.querySelectorShadowDom` available for easy include into a test framework
