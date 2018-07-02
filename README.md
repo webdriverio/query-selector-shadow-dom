@@ -15,6 +15,9 @@ console.log(querySelectorDeep('#downloads-list div#title-area + a'));
 
 ```
 
+#Shady DOM
+If using the polyfills and shady DOM, this library will just use `querySelector|querySelectorAll`
+
 ## Importing
 - Shipped as an ES6 module to be included using a bundler of your choice (or not).
 - ES5 version bundled ontop the window as `window.querySelectorShadowDom` available for easy include into a test framework
