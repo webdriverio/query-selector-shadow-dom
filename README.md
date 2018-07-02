@@ -6,7 +6,7 @@ querySelector that can pierce Shadow DOM roots without knowing the path through 
 
 ```javascript
 
-import { querySelectorAllDeep, querySelectorDeep } from '../src/querySelectorDeep.js';
+import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-dom';
 
 
 ```
