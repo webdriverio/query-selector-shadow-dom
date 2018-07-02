@@ -10,7 +10,7 @@ In the below examples the components being searched for are nested within web co
 // Download and Paste the lib code in dist into chrome://downloads console to try it out :)
 
 console.log(querySelectorDeep('downloads-item:nth-child(4) #remove'));
-console.log(querySelectorDeepAll('#downloads-list .is-active a[href^="https://"]'));
+console.log(querySelectorAllDeep('#downloads-list .is-active a[href^="https://"]'));
 console.log(querySelectorDeep('#downloads-list div#title-area + a'));
 
 ```
