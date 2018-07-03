@@ -24,7 +24,7 @@ console.log(querySelectorDeep('#downloads-list div#title-area + a'));
 ```
 ##Examples
 ### Puppeteer
-```
+```javascript
 /**
  * @name get list of links which may be in the shadow dom
  *
