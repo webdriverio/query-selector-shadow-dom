@@ -29,3 +29,13 @@ If using the polyfills and shady DOM, this library will just use `querySelector|
 ## Importing
 - Shipped as an ES6 module to be included using a bundler of your choice (or not).
 - ES5 version bundled ontop the window as `window.querySelectorShadowDom` available for easy include into a test framework
+
+## Running the code locally
+`npm install`
+### Running the tests
+`npm test`
+### Running the tests in watch mode
+`npm run watch`
+
+### Running the build
+`npm run build`
