@@ -9,7 +9,9 @@ querySelector that can pierce Shadow DOM roots without knowing the path through 
 import { querySelectorAllDeep, querySelectorDeep } from '../src/querySelectorDeep.js';
 
 ```
+
 ## Examples
+
 ### Puppeteer
 ```javascript
 /**
@@ -37,7 +39,7 @@ const fs = require('fs');
 ```
 
 ### Chrome downloads page
-```
+
 
 In the below examples the components being searched for are nested within web components `shadowRoots`.
 
@@ -49,6 +51,7 @@ console.log(querySelectorDeep('downloads-item:nth-child(4) #remove'));
 console.log(querySelectorAllDeep('#downloads-list .is-active a[href^="https://"]'));
 console.log(querySelectorDeep('#downloads-list div#title-area + a'));
 
+```
 
 
 #Shady DOM
