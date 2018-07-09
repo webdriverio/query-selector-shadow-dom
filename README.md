@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Georgegriff/query-selector-shadow-dom.svg?branch=master)](https://travis-ci.org/Georgegriff/query-selector-shadow-dom)  [![npm version](https://badge.fury.io/js/query-selector-shadow-dom.svg)](https://badge.fury.io/js/query-selector-shadow-dom) [![codecov](https://codecov.io/gh/Georgegriff/query-selector-shadow-dom/branch/master/graph/badge.svg)](https://codecov.io/gh/Georgegriff/query-selector-shadow-dom)
 # query-selector-shadow-dom
-querySelector that can pierce Shadow DOM roots without knowing the path through nested shadow roots. Useful for automated testing of Web Components e.g. with Selenium.
+querySelector that can pierce Shadow DOM roots without knowing the path through nested shadow roots. Useful for automated testing of Web Components e.g. with Selenium, Puppeteer.
 
 
 ```javascript
@@ -62,8 +62,8 @@ console.log(querySelectorShadowDom.querySelectorDeep('#downloads-list div#title-
 ```
 
 
-#Shady DOM
-If using the polyfills and shady DOM, this library will just use `querySelector|querySelectorAll`
+# Shady DOM
+If using the polyfills and shady DOM, this library will just use still work.
 
 ## Importing
 - Shipped as an ES6 module to be included using a bundler of your choice (or not).
