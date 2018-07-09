@@ -6,11 +6,9 @@
     "scripts": {
         "prepublish": "npm run build",
         "build": "rollup -c",
-        "test:ci": "npm run -s test:build && npm run -s test:run-ci",
-        "test": "npm run -s test:build && npm run -s test:run",
-        "test:build": "rollup --format iife ./test/basic.js > dist/testbundle.js",
-        "test:run": "karma start",
-        "test:run-ci": "karma start --config karma.env.config.js",
+        "test": "karma start",
+        "test:ci": "karma start --config karma.env.config.js",
+        "report-coverage": "cat ./coverage/lcov.info | coveralls",
         "watch": "npm-watch"
     },
     "watch": {
@@ -36,6 +34,8 @@
         "jasmine": "^3.1.0",
         "karma": "^2.0.4",
         "karma-chrome-launcher": "^2.2.0",
+        "karma-coverage": "^1.1.2",
+        "karma-coveralls": "^2.0.0",
         "karma-firefox-launcher": "^1.1.0",
         "karma-jasmine": "^1.1.2",
         "karma-rollup-preprocessor": "^6.0.0",
@@ -43,11 +43,15 @@
         "npm-watch": "^0.3.0",
         "rollup": "^0.62.0",
         "rollup-plugin-babel": "^3.0.6",
+        "rollup-plugin-istanbul": "^2.0.1",
         "rollup-plugin-sourcemaps": "^0.4.2",
         "rollup-plugin-uglify": "^4.0.0"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/Georgegriff/query-selector-shadow-dom"
+    },
+    "dependencies": {
+        "puppeteer": "^1.5.0"
     }
 }

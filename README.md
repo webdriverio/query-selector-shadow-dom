@@ -6,13 +6,15 @@ querySelector that can pierce Shadow DOM roots without knowing the path through 
 
 ```javascript
 
+// available as an ES6 module for importing in Browser environments
+
 import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-dom';
 
 ```
 
 ## Examples
 
-### Puppeteer
+### Puppeteer (ES5 script on the window)
 ```javascript
 /**
  * @name get list of links which may be in the shadow dom
@@ -20,23 +22,30 @@ import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-d
  */
 const puppeteer = require('puppeteer');
 const path = require('path');
-const fs = require('fs');
-(async () => {
-  const browser = await puppeteer.launch()
-  const page = await browser.newPage()
-  await page.goto('https://www.polymer-project.org/2.0/docs/upgrade')
-  const filePath = path.join(__dirname, 'node_modules/query-selector-shadow-dom/dist/querySelectorShadowDom.js');
-  await page.evaluate(fs.readFileSync(filePath, 'utf8'));
+(async() => {
+    try {
+        const browser = await puppeteer.launch()
+        const page = await browser.newPage()
+        await page.goto('https://www.polymer-project.org/2.0/docs/upgrade')
+        await page.addScriptTag({
+            path: path.join(__dirname, 'node_modules/query-selector-shadow-dom/dist/querySelectorShadowDom.js')
+        });
 
-  // execute standard javascript in the context of the page.
-  const downloads = await page.evaluate(() => {
-    const anchors = Array.from(querySelectorShadowDom.querySelectorAllDeep('a'))
-    return anchors.map(anchor => anchor.href)
-  })
-  console.log(downloads)
-  await browser.close()
+        // execute standard javascript in the context of the page.
+        const downloads = await page.evaluate(() => {
+            const anchors = Array.from(querySelectorShadowDom.querySelectorAllDeep('a'))
+            return anchors.map(anchor => anchor.href)
+        })
+        console.log(downloads)
+        await browser.close()
+    } catch (e) {
+        console.error(e);
+    }
+
 })()
 ```
+
+
 
 ### Chrome downloads page
 
@@ -47,9 +56,9 @@ In the below examples the components being searched for are nested within web co
 
 // Download and Paste the lib code in dist into chrome://downloads console to try it out :)
 
-console.log(querySelectorDeep('downloads-item:nth-child(4) #remove'));
-console.log(querySelectorAllDeep('#downloads-list .is-active a[href^="https://"]'));
-console.log(querySelectorDeep('#downloads-list div#title-area + a'));
+console.log(querySelectorShadowDom.querySelectorAllDeep('downloads-item:nth-child(4) #remove'));
+console.log(querySelectorShadowDom.querySelectorAllDeep('#downloads-list .is-active a[href^="https://"]'));
+console.log(querySelectorShadowDom.querySelectorDeep('#downloads-list div#title-area + a'));
 
 ```
 

@@ -16,4 +16,6 @@ install:
   - npm install
 script:
   - mkdir -p dist
-  - npm test
+  - npm run test:ci
+after_success:
+  - npm run report-coverage

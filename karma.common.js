@@ -1,3 +1,18 @@
+const babel = require('rollup-plugin-babel');
+const babelrc = require('babelrc-rollup').default;
+const istanbul = require('rollup-plugin-istanbul');
+
+const babelConfig = {
+    'presets': [
+        ['env', {
+            'targets': {
+                'browsers': ['ff >= 60']
+            },
+            'loose': true
+        }]
+    ]
+};
+
 module.exports = function(overrides, config) {
     return Object.assign({
         // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -11,8 +26,8 @@ module.exports = function(overrides, config) {
 
         // list of files / patterns to load in the browser
         files: [
+            'test/basic.js',
             { pattern: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js', served: true, included: true },
-            'dist/testbundle.js'
         ],
 
 
@@ -22,13 +37,38 @@ module.exports = function(overrides, config) {
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: {},
+        preprocessors: {
+            'src/**/*.js': ['rollup', 'coverage'],
+            'test/**/*.js': ['rollup']
+        },
 
+        rollupPreprocessor: {
+            /**
+             * This is just a normal Rollup config object,
+             * except that `input` is handled for you.
+             */
+            plugins: [
+                istanbul({
+                    exclude: ['test/**/*.js']
+                }),
+                babel(babelrc({
+                    addExternalHelpersPlugin: false,
+                    config: babelConfig,
+                    exclude: 'node_modules/**'
+                }))
+
+            ],
+            output: {
+                format: 'iife', // Helps prevent naming collisions.
+                name: 'querySelectorShadowDom', // Required for 'iife' format.
+                sourcemap: 'inline' // Sensible for testing.
+            }
+        },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['spec'],
+        reporters: ['spec', 'coverage'],
         specReporter: {
             maxLogLines: 5, // limit number of lines logged per test
             suppressErrorSummary: true, // do not print error summary
@@ -38,7 +78,10 @@ module.exports = function(overrides, config) {
             showSpecTiming: true, // print the time elapsed for each spec
             failFast: true // test would finish with error when a first fail occurs. 
         },
-
+        coverageReporter: {
+            type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
+            dir: 'coverage/'
+        },
         // web server port
         port: 9876,
 
@@ -54,11 +97,6 @@ module.exports = function(overrides, config) {
 
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: true,
-
-
-        // start these browsers
-        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['ChromeHeadless'],
 
 
         // Continuous Integration mode
