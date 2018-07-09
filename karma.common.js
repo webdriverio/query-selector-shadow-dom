@@ -27,8 +27,8 @@ module.exports = function(overrides, config) {
         // list of files / patterns to load in the browser
         files: [
             { pattern: 'node_modules/@webcomponents/webcomponentsjs/bundles/**.js', served: true, included: true },
-            { pattern: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js', served: true, included: true },
-            'test/basic.js'
+            { pattern: 'node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js', served: true, included: true },
+            'test/**/*.spec.js'
         ],
 
 
