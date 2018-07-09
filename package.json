@@ -7,7 +7,7 @@
         "prepublish": "npm run build",
         "build": "rollup -c",
         "test": "karma start",
-        "test:ci": "karma start --config karma.env.config.js",
+        "test:ci": "karma start --browsers ChromeHeadless,Firefox",
         "report-coverage": "cat ./coverage/lcov.info | coveralls",
         "watch": "npm-watch"
     },

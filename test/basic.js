@@ -7,7 +7,8 @@ describe("Basic Suite", function() {
 
     let parent;
     let baseComponent;
-    beforeEach(() => {
+
+    function setup() {
         parent = document.createElement('div');
         document.body.appendChild(parent);
         baseComponent = createTestComponent(parent, {
@@ -15,6 +16,9 @@ describe("Basic Suite", function() {
             childTextContent: 'Base Component'
         });
         baseComponent.classList.add('base-comp');
+    }
+    beforeEach(() => {
+        setup();
     });
 
     afterEach(() => {

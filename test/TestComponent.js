@@ -9,7 +9,7 @@ export class TestComponent extends HTMLElement {
     }
 
     connectedCallback() {
-        this.createShadowRoot();
+        this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = `<p class="${this.childClassName}">${this.childTextContent}</p><slot></slot>`;
     }
 
