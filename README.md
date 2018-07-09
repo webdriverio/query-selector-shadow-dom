@@ -63,7 +63,7 @@ console.log(querySelectorShadowDom.querySelectorDeep('#downloads-list div#title-
 
 
 # Shady DOM
-If using the polyfills and shady DOM, this library will just use still work.
+If using the polyfills and shady DOM, this library will still work.
 
 ## Importing
 - Shipped as an ES6 module to be included using a bundler of your choice (or not).
