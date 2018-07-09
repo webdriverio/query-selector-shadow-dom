@@ -18,4 +18,5 @@ script:
   - mkdir -p dist
   - npm run test:ci
 after_success:
-  - npm run report-coverage
+  - npm install -g codecov
+  - codecov

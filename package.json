@@ -8,7 +8,6 @@
         "build": "rollup -c",
         "test": "karma start",
         "test:ci": "karma start --browsers ChromeHeadless,Firefox",
-        "report-coverage": "cat ./coverage/lcov.info | coveralls",
         "watch": "npm-watch"
     },
     "watch": {
@@ -35,7 +34,6 @@
         "karma": "^2.0.4",
         "karma-chrome-launcher": "^2.2.0",
         "karma-coverage": "^1.1.2",
-        "karma-coveralls": "^2.0.0",
         "karma-firefox-launcher": "^1.1.0",
         "karma-jasmine": "^1.1.2",
         "karma-rollup-preprocessor": "^6.0.0",
