@@ -71,13 +71,40 @@ describe("Basic Suite", function() {
 
     describe("querySelectorAll", function() {
 
-        it('can locate all instances of components across even in shado dom (except base)', function() {
+        it('can locate all instances of components across even in shadow dom (except base)', function() {
             createNestedComponent(baseComponent, 10);
             const testComponents = querySelectorAllDeep(`test-component:not(.base-comp)`);
             expect(testComponents.length).toEqual(10);
 
+        });
+
+        it('can get elements matching or selector', function() {
+            createTestComponent(parent, {
+                childClassName: 'header-1'
+            });
+            const element = createTestComponent(parent, {
+                childClassName: 'header-2'
+            });
+            element.classList.add('parent')
+            const testComponents = querySelectorAllDeep(`.header-1, .header-2, .parent`);
+            expect(testComponents.length).toEqual(3);
 
         });
+
+        it('can handle extra white space in selectors', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2">Content</div>'
+            });
+            createTestComponent(testComponent, {
+                childClassName: 'header-2'
+            });
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1      .header-2`);
+            expect(testComponents.length).toEqual(2);
+
+        });
+
 
         // describe(".perf", function() {
 

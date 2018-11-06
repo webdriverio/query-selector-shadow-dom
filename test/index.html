@@ -28,11 +28,19 @@
                 childClassName: 'base',
                 childTextContent: 'Base Component'
             });
-            createTestComponent(baseComponent, count, {
+            createTestComponent(baseComponent, 1, {
                 childClassName: 'childy'
             });
-
-
+            const testComponent = createTestComponent(baseComponent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2">Content</div>'
+            });
+            testComponent.classList.add('header-1');
+            createTestComponent(testComponent, {
+                childClassName: 'header-2'
+            });
+            const testComponents = querySelectorAllDeep(`.header-1 .header-2`);
+            console.log(testComponents)
 
             window.querySelectorAllDeep = querySelectorAllDeep;
             window.querySelectorDeep = querySelectorDeep;

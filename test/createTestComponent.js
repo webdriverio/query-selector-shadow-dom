@@ -1,9 +1,6 @@
 import { TestComponent } from './TestComponent.js';
-export function createTestComponent(parent, { childClassName, childTextContent } = {}) {
-    return parent.appendChild(new TestComponent({
-        childClassName,
-        childTextContent
-    }));
+export function createTestComponent(parent, options = {}) {
+    return parent.appendChild(new TestComponent(options));
 }
 
 export const createChildElements = (component) => {
