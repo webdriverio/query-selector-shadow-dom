@@ -4,7 +4,7 @@ const istanbul = require('rollup-plugin-istanbul');
 
 const babelConfig = {
     'presets': [
-        ['env', {
+        ['@babel/preset-env', {
             'targets': {
                 'browsers': ['ff >= 60']
             },

@@ -4,7 +4,7 @@ import { uglify } from 'rollup-plugin-uglify';
 
 const babelConfig = {
     'presets': [
-        ['env', {
+        ['@babel/preset-env', {
             'targets': {
                 'browsers': ['last 2 versions', 'IE >= 11']
             },
