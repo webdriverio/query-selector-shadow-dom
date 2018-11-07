@@ -31,15 +31,16 @@
             createTestComponent(baseComponent, 1, {
                 childClassName: 'childy'
             });
-            const testComponent = createTestComponent(baseComponent, {
-                childClassName: 'header-1',
-                internalHTML: '<div class="header-2">Content</div>'
+
+            const testComponent = createTestComponent(parent, {
+                internalHTML: `<span class="header-2"></span><div data-test="Hello World" class="header-3">Content</div>`
             });
-            testComponent.classList.add('header-1');
             createTestComponent(testComponent, {
-                childClassName: 'header-2'
+                childClassName: 'header-4'
             });
-            const testComponents = querySelectorAllDeep(`.header-1 .header-2`);
+            testComponent.setAttribute('data-test', 'Hello " \'World\'')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1[data-test='Hello \\" \\'World\\'']`);
             console.log(testComponents)
 
             window.querySelectorAllDeep = querySelectorAllDeep;

@@ -105,6 +105,94 @@ describe("Basic Suite", function() {
 
         });
 
+        it('can handle attribute selector value', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div data-test="Hello-World" class="header-2">Content</div>'
+            });
+            createTestComponent(testComponent, {
+                childClassName: 'header-2'
+            });
+            testComponent.setAttribute('data-test', '123')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1 [data-test="Hello-World"]`);
+            expect(testComponents.length).toEqual(1);
+            expect(testComponents[0].classList.contains('header-2')).toBeTruthy();
+        });
+
+
+        it('can handle extra white space in attribute value', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div data-test="Hello World" class="header-2">Content</div>'
+            });
+            createTestComponent(testComponent, {
+                childClassName: 'header-2'
+            });
+            // this should not match as matching children
+            testComponent.setAttribute('data-test', 'Hello World')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1 [data-test="Hello World"]`);
+            expect(testComponents.length).toEqual(1);
+        });
+
+        it('can handle escaped data in attributes', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2">Content</div>'
+            });
+            const test2 = createTestComponent(testComponent, {
+                childClassName: 'header-2'
+            });
+            test2.setAttribute('data-test', 'Hello" World')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1 [data-test="Hello\\" World"]`);
+            expect(testComponents.length).toEqual(1);
+        });
+
+        it('can handle extra white space in single quoted attribute value', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2">Content</div>'
+            });
+            createTestComponent(testComponent, {
+                childClassName: 'header-2'
+            });
+            testComponent.setAttribute('data-test', 'Hello " \'World\'')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1[data-test='Hello \\" \\'World\\'']`);
+            expect(testComponents.length).toEqual(1);
+        });
+
+        it('split correctly on selector list', function() {
+            const testComponent = createTestComponent(parent, {
+                internalHTML: '<span class="header-2"></span><div data-test="Hello" World" class="header-3">Content</div>'
+            });
+            createTestComponent(testComponent, {
+                childClassName: 'header-4'
+            });
+            testComponent.setAttribute('data-test', '123')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1,.header-2 + .header-3`);
+            expect(testComponents.length).toEqual(2);
+            expect(testComponents[1].classList.contains('header-3')).toBeTruthy();
+        });
+
+        it('split correctly on selector list (ignore white space)', function() {
+            const testComponent = createTestComponent(parent, {
+                internalHTML: '<span class="header-2"></span><div data-test="Hello World" class="header-3">Content</div>'
+            });
+            createTestComponent(testComponent, {
+                childClassName: 'header-4'
+            });
+            testComponent.setAttribute('data-test', '123')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`    .header-1,     .header-2 + .header-3`);
+            expect(testComponents.length).toEqual(2);
+            expect(testComponents[1].classList.contains('header-3')).toBeTruthy();
+        });
+
+
 
         // describe(".perf", function() {
 
