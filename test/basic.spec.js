@@ -66,6 +66,15 @@ describe("Basic Suite", function() {
             expect(testSubComponent.textContent).toEqual('Child 2')
         });
 
+        it('selector list only returns the first element', function() {
+            createNestedComponent(baseComponent, 10, {
+                createChildren: createChildElements
+            });
+            const testSubComponent = querySelectorDeep('.desc-5 div:nth-child(2), .desc-1');
+            expect(testSubComponent).toBeTruthy();
+            expect(testSubComponent.textContent).toEqual('Child 2')
+        });
+
     });
 
 
