@@ -111,7 +111,7 @@ function findMatchingElement(splitSelector, possibleElementsIndex) {
 
 function findParentOrHost(element) {
     const parentNode = element.parentNode;
-    return parentNode && parentNode.host ? parentNode.host : parentNode === document ? null : parentNode;
+    return (parentNode && parentNode.host && parentNode.nodeType === 11) ? parentNode.host : parentNode === document ? null : parentNode;
 }
 
 /**
