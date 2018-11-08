@@ -44,10 +44,11 @@ function _querySelectorDeep(selector, findMany) {
             }
             // do best to support complex selectors and split the query
             const splitSelector = splitByCharacterUnlessQuoted(minimalSelector
-                //remove white space at start of selector
-                .replace(/^\s+/g, '')
-                .replace(/\s*([>+~]+)\s*/g, '$1')
-                .replace(/\s\s+/g, ' '), ' ');
+                    //remove white space at start of selector
+                    .replace(/^\s+/g, '')
+                    .replace(/\s*([>+~]+)\s*/g, '$1'), ' ')
+                // filter out entry white selectors
+                .filter((entry) => !!entry);
             const possibleElementsIndex = splitSelector.length - 1;
             const possibleElements = collectAllElementsDeep(splitSelector[possibleElementsIndex]);
             const findElements = findMatchingElement(splitSelector, possibleElementsIndex);
