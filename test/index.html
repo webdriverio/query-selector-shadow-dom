@@ -33,15 +33,13 @@
             });
 
             const testComponent = createTestComponent(parent, {
-                internalHTML: `<span class="header-2"></span><div data-test="Hello World" class="header-3">Content</div>`
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2"><div class="find-me"></div></div>'
             });
-            createTestComponent(testComponent, {
-                childClassName: 'header-4'
-            });
-            testComponent.setAttribute('data-test', 'Hello " \'World\'')
-            testComponent.classList.add('header-1');
-            const testComponents = querySelectorAllDeep(`.header-1[data-test='Hello \\" \\'World\\'']`);
-            console.log(testComponents)
+            testComponent.shadowRoot.querySelector('.header-2').host = "test.com";
+            testComponent.classList.add('container');
+            const testComponents = querySelectorAllDeep(`.container .find-me`);
+            expect(testComponents.length).toEqual(1);
 
             window.querySelectorAllDeep = querySelectorAllDeep;
             window.querySelectorDeep = querySelectorDeep;

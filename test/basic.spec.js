@@ -100,6 +100,17 @@ describe("Basic Suite", function() {
 
         });
 
+        it('host property on non shadowRoot element is ignored', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2"><div class="find-me"></div></div>'
+            });
+            testComponent.shadowRoot.querySelector('.header-2').host = "test.com";
+            testComponent.classList.add('container');
+            const testComponents = querySelectorAllDeep(`.container .find-me`);
+            expect(testComponents.length).toEqual(1);
+        });
+
         it('can handle extra white space in selectors', function() {
             const testComponent = createTestComponent(parent, {
                 childClassName: 'header-1',
