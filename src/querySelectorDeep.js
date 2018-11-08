@@ -35,7 +35,7 @@ function _querySelectorDeep(selector, findMany) {
         }
 
         // split on commas because those are a logical divide in the operation
-        const selectionsToMake = selector.split(/,\s*/);
+        const selectionsToMake = splitByCharacterUnlessQuoted(selector, ',');
 
         return selectionsToMake.reduce((acc, minimalSelector) => {
             // if not finding many just reduce the first match
@@ -43,27 +43,11 @@ function _querySelectorDeep(selector, findMany) {
                 return acc;
             }
             // do best to support complex selectors and split the query
-            const splitSelector = minimalSelector
+            const splitSelector = splitByCharacterUnlessQuoted(minimalSelector
                 //remove white space at start of selector
                 .replace(/^\s+/g, '')
                 .replace(/\s*([>+~]+)\s*/g, '$1')
-                .replace(/\s\s+/g, ' ')
-                // split on space unless in quotes
-                .match(/\\?.|^$/g).reduce((p, c) => {
-                    if (c === '"' && !p.sQuote) {
-                        p.quote ^= 1;
-                        p.a[p.a.length - 1] += c;
-                    } else if (c === '\'' && !p.quote) {
-                        p.sQuote ^= 1;
-                        p.a[p.a.length - 1] += c;
-
-                    } else if (!p.quote && !p.sQuote && c === ' ') {
-                        p.a.push('');
-                    } else {
-                        p.a[p.a.length - 1] += c;
-                    }
-                    return p;
-                }, { a: [''] }).a
+                .replace(/\s\s+/g, ' '), ' ');
             const possibleElementsIndex = splitSelector.length - 1;
             const possibleElements = collectAllElementsDeep(splitSelector[possibleElementsIndex]);
             const findElements = findMatchingElement(splitSelector, possibleElementsIndex);
@@ -106,6 +90,24 @@ function findMatchingElement(splitSelector, possibleElementsIndex) {
         return foundElement;
     };
 
+}
+
+function splitByCharacterUnlessQuoted(selector, character) {
+    return selector.match(/\\?.|^$/g).reduce((p, c) => {
+        if (c === '"' && !p.sQuote) {
+            p.quote ^= 1;
+            p.a[p.a.length - 1] += c;
+        } else if (c === '\'' && !p.quote) {
+            p.sQuote ^= 1;
+            p.a[p.a.length - 1] += c;
+
+        } else if (!p.quote && !p.sQuote && c === character) {
+            p.a.push('');
+        } else {
+            p.a[p.a.length - 1] += c;
+        }
+        return p;
+    }, { a: [''] }).a;
 }
 
 

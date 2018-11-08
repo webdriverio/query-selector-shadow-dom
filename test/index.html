@@ -28,19 +28,16 @@
                 childClassName: 'base',
                 childTextContent: 'Base Component'
             });
-            createTestComponent(baseComponent, 1, {
-                childClassName: 'childy'
-            });
-
             const testComponent = createTestComponent(parent, {
                 childClassName: 'header-1',
-                internalHTML: '<div class="header-2"><div class="find-me"></div></div>'
+                internalHTML: '<div class="header-2">Content</div>'
             });
-            testComponent.shadowRoot.querySelector('.header-2').host = "test.com";
-            testComponent.classList.add('container');
-            const testComponents = querySelectorAllDeep(`.container .find-me`);
-            expect(testComponents.length).toEqual(1);
-
+            const test2 = createTestComponent(testComponent, {
+                childClassName: 'header-2'
+            });
+            test2.setAttribute('data-test', 'Hello, World')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1 [data-test="Hello, World"], .george`);
             window.querySelectorAllDeep = querySelectorAllDeep;
             window.querySelectorDeep = querySelectorDeep;
         })();
