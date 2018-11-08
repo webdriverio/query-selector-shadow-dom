@@ -167,8 +167,8 @@ describe("Basic Suite", function() {
             });
             test2.setAttribute('data-test', 'Hello, World')
             testComponent.classList.add('header-1');
-            const testComponents = querySelectorAllDeep(`.header-1 [data-test="Hello, World"]`);
-            expect(testComponents.length).toEqual(1);
+            const testComponents = querySelectorAllDeep(`.header-1 [data-test="Hello, World"], .header-2, .header-1`);
+            expect(testComponents.length).toEqual(5);
         });
 
         it('can escaped comma in attribute values', function() {
