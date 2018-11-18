@@ -21,5 +21,23 @@ export class TestComponent extends HTMLElement {
     addNested(child) {
         this.shadowRoot.querySelector('p').appendChild(child);
     }
+
+    static get observedAttributes() {
+        return ['child-class-name', 'child-text-content', 'internal-html'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        switch (name) {
+            case 'child-class-name':
+                this.childClassName = newValue;
+                break;
+            case 'child-text-content':
+                this.childTextContent = newValue;
+                break;
+            case 'internal-html':
+                this.internalHTML = newValue;
+                break;
+        }
+    }
 }
 customElements.define('test-component', TestComponent);

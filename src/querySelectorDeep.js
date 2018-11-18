@@ -17,16 +17,16 @@
 * Another example querySelectorAllDeep('#downloads-list div#title-area + a');
 e.g.
 */
-export function querySelectorAllDeep(selector) {
-    return _querySelectorDeep(selector, true);
+export function querySelectorAllDeep(selector, root = document) {
+    return _querySelectorDeep(selector, true, root);
 }
 
-export function querySelectorDeep(selector) {
-    return _querySelectorDeep(selector);
+export function querySelectorDeep(selector, root = document) {
+    return _querySelectorDeep(selector, false, root);
 }
 
-function _querySelectorDeep(selector, findMany) {
-    let lightElement = document.querySelector(selector);
+function _querySelectorDeep(selector, findMany, root) {
+    let lightElement = root.querySelector(selector);
 
     if (document.head.createShadowRoot || document.head.attachShadow) {
         // no need to do any special if selector matches something specific in light-dom
@@ -50,8 +50,8 @@ function _querySelectorDeep(selector, findMany) {
                 // filter out entry white selectors
                 .filter((entry) => !!entry);
             const possibleElementsIndex = splitSelector.length - 1;
-            const possibleElements = collectAllElementsDeep(splitSelector[possibleElementsIndex]);
-            const findElements = findMatchingElement(splitSelector, possibleElementsIndex);
+            const possibleElements = collectAllElementsDeep(splitSelector[possibleElementsIndex], root);
+            const findElements = findMatchingElement(splitSelector, possibleElementsIndex, root);
             if (findMany) {
                 acc = acc.concat(possibleElements.filter(findElements));
                 return acc;
@@ -66,13 +66,13 @@ function _querySelectorDeep(selector, findMany) {
         if (!findMany) {
             return lightElement;
         } else {
-            return document.querySelectorAll(selector);
+            return root.querySelectorAll(selector);
         }
     }
 
 }
 
-function findMatchingElement(splitSelector, possibleElementsIndex) {
+function findMatchingElement(splitSelector, possibleElementsIndex, root) {
     return (element) => {
         let position = possibleElementsIndex;
         let parent = element;
@@ -86,7 +86,7 @@ function findMatchingElement(splitSelector, possibleElementsIndex) {
             if (foundMatch) {
                 position--;
             }
-            parent = findParentOrHost(parent);
+            parent = findParentOrHost(parent, root);
         }
         return foundElement;
     };
@@ -112,9 +112,9 @@ function splitByCharacterUnlessQuoted(selector, character) {
 }
 
 
-function findParentOrHost(element) {
+function findParentOrHost(element, root) {
     const parentNode = element.parentNode;
-    return (parentNode && parentNode.host && parentNode.nodeType === 11) ? parentNode.host : parentNode === document ? null : parentNode;
+    return (parentNode && parentNode.host && parentNode.nodeType === 11) ? parentNode.host : parentNode === root ? null : parentNode;
 }
 
 /**
@@ -124,7 +124,7 @@ function findParentOrHost(element) {
  * @author ebidel@ (Eric Bidelman)
  * License Apache-2.0
  */
-function collectAllElementsDeep(selector = null) {
+function collectAllElementsDeep(selector = null, root) {
     const allElements = [];
 
     const findAllElements = function(nodes) {
@@ -137,7 +137,7 @@ function collectAllElementsDeep(selector = null) {
         }
     };
 
-    findAllElements(document.querySelectorAll('*'));
+    findAllElements(root.querySelectorAll('*'));
 
     return selector ? allElements.filter(el => el.matches(selector)) : allElements;
 }

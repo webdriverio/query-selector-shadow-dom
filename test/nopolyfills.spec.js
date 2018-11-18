@@ -38,5 +38,19 @@ describe("No Polyfills Suite", function() {
         expect(querySelectorAllDeep('.testing').length).toEqual(2);
     });
 
+    it('can fallback to query selector when no support and no polyfills with alternative root', function() {
+        const root = document.createElement('div');
+        parent.appendChild(root);
+        const element = document.createElement('a');
+        const element2 = document.createElement('a');
+        element.classList.add('testing');
+        element2.classList.add('testing');
+        root.appendChild(element);
+        parent.appendChild(element2);
+
+        expect(querySelectorAllDeep('.testing', root).length).toEqual(1);
+    });
+
+
 
 });

@@ -242,6 +242,40 @@ describe("Basic Suite", function() {
             expect(testComponents[1].classList.contains('header-3')).toBeTruthy();
         });
 
+        it('can provide an alternative node', function() {
+            const root = document.createElement('div');
+            parent.appendChild(root);
+
+            createTestComponent(root, {
+                childClassName: 'inner-content'
+            });
+
+            createTestComponent(parent, {
+                childClassName: 'inner-content'
+            });
+            const testComponent = querySelectorAllDeep('.inner-content', root);
+            expect(testComponent.length).toEqual(1);
+
+        });
+
+        it('can query nodes in an iframe', function(done) {
+
+            const innerframe = `<p class='child'>Content</p>`;
+            createTestComponent(parent, {
+                internalHTML: `<iframe id="frame" srcdoc="${innerframe}"></iframe>`
+            });
+            setTimeout(() => {
+                const iframe = querySelectorDeep('#frame');
+                const testComponents = querySelectorAllDeep('.child', iframe.contentDocument);
+                debugger;
+                expect(testComponents.length).toEqual(1);
+                expect(testComponents[0].textContent).toEqual("Content");
+                done();
+            }, 150);
+
+
+        });
+
 
 
         // describe(".perf", function() {

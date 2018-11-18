@@ -43,7 +43,16 @@ const path = require('path');
 
 })()
 ```
+### Provide alternative node
+```javascript
+    // query from another node
+    querySelectorShadowDom.querySelectorAllDeep('child', document.querySelector('#startNode'));
+    // query an iframe
+    querySelectorShadowDom.querySelectorAllDeep('child', iframe.contentDocument);
+```
 
+This library does not allow you to query across iframe boundaries, you will ned to get a reference to the iframe you want to interact with. </br>
+If your iframe is inside of a shadow root you could cuse `querySelectorDeep` to find the iframe, then pass the `contentDocument` into the 2nd argument of `querySelectorDeep` or `querySelectorAllDeep`.
 
 
 ### Chrome downloads page

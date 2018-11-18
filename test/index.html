@@ -24,22 +24,17 @@
             import ('../src/querySelectorDeep.js');
             const parent = document.createElement('div');
             document.body.appendChild(parent);
-            const baseComponent = createTestComponent(parent, {
-                childClassName: 'base',
-                childTextContent: 'Base Component'
+            const innerframe = `<p class='child'>Content</p>`;
+            createTestComponent(parent, {
+                internalHTML: `<iframe id="frame" srcdoc="${innerframe}"></iframe>`
             });
-            const testComponent = createTestComponent(parent, {
-                childClassName: 'header-1',
-                internalHTML: '<div class="header-2">Content</div>'
-            });
-            const test2 = createTestComponent(testComponent, {
-                childClassName: 'header-2'
-            });
-            test2.setAttribute('data-test', 'Hello, World')
-            testComponent.classList.add('header-1');
-            const testComponents = querySelectorAllDeep(`.header-1 [data-test="Hello, World"], .george`);
-            window.querySelectorAllDeep = querySelectorAllDeep;
-            window.querySelectorDeep = querySelectorDeep;
+            setTimeout(() => {
+                const iframe = querySelectorDeep('#frame');
+                const testComponents = querySelectorAllDeep('.child', iframe.contentDocument);
+                expect(testComponents.length).toEqual(1);
+                expect(testComponents[0].textContent).toEqual("Content");
+                done();
+            }, 300);
         })();
     </script>
 </body>
