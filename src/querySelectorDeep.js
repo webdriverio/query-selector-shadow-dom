@@ -57,7 +57,7 @@ function _querySelectorDeep(selector, findMany, root) {
                 return acc;
             } else {
                 acc = possibleElements.find(findElements);
-                return acc;
+                return acc || null;
             }
         }, findMany ? [] : null);
 

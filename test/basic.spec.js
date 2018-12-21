@@ -30,8 +30,19 @@ describe("Basic Suite", function() {
     });
 
     it("exports querySelectorDeep function", function() {
-        expect(querySelectorAllDeep).toEqual(jasmine.any(Function));
+        expect(querySelectorDeep).toEqual(jasmine.any(Function));
     });
+
+    it("querySelectorDeep returns null when not found", function() {
+        expect(querySelectorDeep('whatever')).toBeNull();
+    });
+
+    it("querySelectorAllDeep returns empty array when not found", function() {
+        const foundElements = querySelectorAllDeep('whatever');
+        expect(foundElements).toEqual(jasmine.any(Array));
+        expect(foundElements.length).toEqual(0);
+    });
+
 
     describe("querySelectorDeep", function() {
         it('can access an element in the light dom', function() {
