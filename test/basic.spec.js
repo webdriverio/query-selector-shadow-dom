@@ -40,6 +40,15 @@ describe("Basic Suite", function() {
             expect(testComponent).toBeTruthy();
         });
 
+        it('can access direct shadow dom child of the root', function() {
+            const rootComponent = createTestComponent(parent, {
+                childClassName: "child-class",
+            });
+            const child = querySelectorDeep('.child-class', rootComponent);
+            expect(child).toBeTruthy();
+        });
+
+
         it('can access an element in the shadow dom', function() {
             createTestComponent(parent, {
                 childTextContent: 'Child Content'

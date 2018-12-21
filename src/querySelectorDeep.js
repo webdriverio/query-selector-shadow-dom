@@ -136,7 +136,9 @@ function collectAllElementsDeep(selector = null, root) {
             }
         }
     };
-
+    if(root.shadowRoot) {
+        findAllElements(root.shadowRoot.querySelectorAll('*'));
+    }
     findAllElements(root.querySelectorAll('*'));
 
     return selector ? allElements.filter(el => el.matches(selector)) : allElements;
