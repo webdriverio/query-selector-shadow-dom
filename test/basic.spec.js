@@ -95,6 +95,13 @@ describe("Basic Suite", function() {
             expect(testSubComponent.textContent).toEqual('Child 2')
         });
 
+        it('returns null when reaching the document node and no matching parent was found', function() {
+            const rootComponent = createTestComponent(parent, {
+                childClassName: 'child',
+            })
+            const testSubComponent = querySelectorDeep('.parent .child', rootComponent);
+            expect(testSubComponent).toBeNull();
+        });
     });
 
 
