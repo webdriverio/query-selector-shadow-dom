@@ -117,10 +117,6 @@ function splitByCharacterUnlessQuoted(selector, character) {
  * @returns {node is Document | DocumentFragment}
  */
 function isDocumentNode(node) {
-    if (!node) {
-        return false;
-    }
-
     return node.nodeType === Node.DOCUMENT_FRAGMENT_NODE || node.nodeType === Node.DOCUMENT_NODE;
 }
 
