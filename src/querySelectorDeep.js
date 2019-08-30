@@ -77,7 +77,7 @@ function findMatchingElement(splitSelector, possibleElementsIndex, root) {
         let position = possibleElementsIndex;
         let parent = element;
         let foundElement = false;
-        while (parent) {
+        while (parent && !isDocumentNode(parent)) {
             const foundMatch = parent.matches(splitSelector[position]);
             if (foundMatch && position === 0) {
                 foundElement = true;
@@ -111,6 +111,14 @@ function splitByCharacterUnlessQuoted(selector, character) {
     }, { a: [''] }).a;
 }
 
+/**
+ * Checks if the node is a document node or not.
+ * @param {Node} node
+ * @returns {node is Document | DocumentFragment}
+ */
+function isDocumentNode(node) {
+    return node.nodeType === Node.DOCUMENT_FRAGMENT_NODE || node.nodeType === Node.DOCUMENT_NODE;
+}
 
 function findParentOrHost(element, root) {
     const parentNode = element.parentNode;
