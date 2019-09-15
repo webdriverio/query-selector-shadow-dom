@@ -1,6 +1,6 @@
 {
     "name": "query-selector-shadow-dom",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "description": "use querySelector syntax to search for nodes inside of (nested) shadow roots",
     "main": "src/querySelectorDeep.js",
     "scripts": {
