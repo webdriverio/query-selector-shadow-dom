@@ -17,7 +17,7 @@ import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-d
 
 There are some puppeteer examples available in the exampes folder of this repository.
 
-[Puppeteer examples](/examples/puppeteer)
+[Puppeteer examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/puppeteer)
 
 
 ### Provide alternative node
