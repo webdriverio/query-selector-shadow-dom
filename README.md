@@ -13,36 +13,13 @@ import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-d
 
 ## Examples
 
-### Puppeteer (ES5 script on the window)
-```javascript
-/**
- * @name get list of links which may be in the shadow dom
- *
- */
-const puppeteer = require('puppeteer');
-const path = require('path');
-(async() => {
-    try {
-        const browser = await puppeteer.launch()
-        const page = await browser.newPage()
-        await page.goto('https://www.polymer-project.org/2.0/docs/upgrade')
-        await page.addScriptTag({
-            path: path.join(__dirname, 'node_modules/query-selector-shadow-dom/dist/querySelectorShadowDom.js')
-        });
+### Puppeteer 
 
-        // execute standard javascript in the context of the page.
-        const downloads = await page.evaluate(() => {
-            const anchors = Array.from(querySelectorShadowDom.querySelectorAllDeep('a'))
-            return anchors.map(anchor => anchor.href)
-        })
-        console.log(downloads)
-        await browser.close()
-    } catch (e) {
-        console.error(e);
-    }
+There are some puppeteer examples available in the exampes folder of this repository.
 
-})()
-```
+[Puppeteer examples](/examples/puppeteer)
+
+
 ### Provide alternative node
 ```javascript
     // query from another node
@@ -51,7 +28,7 @@ const path = require('path');
     querySelectorShadowDom.querySelectorAllDeep('child', iframe.contentDocument);
 ```
 
-This library does not allow you to query across iframe boundaries, you will ned to get a reference to the iframe you want to interact with. </br>
+This library does not allow you to query across iframe boundaries, you will need to get a reference to the iframe you want to interact with. </br>
 If your iframe is inside of a shadow root you could cuse `querySelectorDeep` to find the iframe, then pass the `contentDocument` into the 2nd argument of `querySelectorDeep` or `querySelectorAllDeep`.
 
 
