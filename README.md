@@ -11,6 +11,11 @@ import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-d
 
 ```
 
+- querySelectorAllDeep - mirrors `querySelectorAll` from the browser, will return an `Array` of element matching the query
+- querySelectorApp - mirrors `querySelector` from the browser, will return the `first` matching element of the query.
+
+Both of the methods above accept a 2nd parameter, see section `Provide alternative node`. This will change the starting element to search from i.e. it will find ancestors of that node that match the query.
+
 ## Examples
 
 ### Puppeteer 
