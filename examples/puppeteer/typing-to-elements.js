@@ -15,9 +15,9 @@ const fs = require('fs');
 
 
         // returns an https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#class-elementhandle
-        const inputElement = await page.waitForFunction(() => {
+        const inputElement = (await page.waitForFunction(() => {
             return querySelectorShadowDom.querySelectorDeep("#type-to-input");
-        });
+        })).asElement();
 
         // https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#elementhandletypetext-options
         await inputElement.type("Typed text to input");

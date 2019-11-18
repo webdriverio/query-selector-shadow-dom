@@ -16,10 +16,10 @@ const fs = require('fs');
 
 
         // ensure btn exists and return it
-        const btn = await page.waitForFunction(() => {
+        const btn = (await page.waitForFunction(() => {
             const btn = querySelectorShadowDom.querySelectorDeep(".btn-in-shadow-dom");
             return btn;
-        });
+        })).asElement();
         await btn.click();
         // check btn was clicked (this page expected btn to change text of output)
         const outputSpan = await page.evaluateHandle(() => querySelectorShadowDom.querySelectorDeep(".output"));
