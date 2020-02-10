@@ -9,7 +9,7 @@ const querySelectorShadowDomUMD = fs.readFileSync(path.resolve(__dirname, "../..
 // make sure that query-selector-shadow-dom is injected and loaded into the function closure
 const engineString =`
     options = options || {};
-    const name = options.name;
+    const name = options.name || 'shadow';
     ${querySelectorShadowDomUMD}
     return {
         name: name,
