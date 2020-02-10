@@ -10,8 +10,7 @@ const main = async () => {
   const page = await context.newPage()
 
   await page.goto('chrome://downloads')
-  // this line works
-  await page.dblclick('shadow=#no-downloads span')
+
   await page.waitForSelector('shadow=#no-downloads span', {timeout: 3000})
   await new Promise(resolve => setTimeout(resolve, 3000))   
 
