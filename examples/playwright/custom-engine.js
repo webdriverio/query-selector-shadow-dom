@@ -1,5 +1,4 @@
-// for your app this would be require("query-selector-shadow-dom/plugins/playwright");
-const { selectorEngine } = require("../../plugins/playwright");
+const { selectorEngine } = require("query-selector-shadow-dom/plugins/playwright");
 const playwright = require('playwright')
 
 const main = async () => {
