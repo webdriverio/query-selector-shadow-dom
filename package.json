@@ -21,6 +21,10 @@
     "author": "George Griffiths <GeorgeGriff>",
     "keywords": [
         "webcomponents",
+        "puppeeteer",
+        "playwright",
+        "automation",
+        "queryselector",
         "shadowdom",
         "web-components",
         "testing"
