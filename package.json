@@ -21,7 +21,7 @@
     "author": "George Griffiths <GeorgeGriff>",
     "keywords": [
         "webcomponents",
-        "puppeeteer",
+        "puppeteer",
         "playwright",
         "automation",
         "queryselector",
