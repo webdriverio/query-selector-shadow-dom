@@ -1,6 +1,6 @@
 {
     "name": "query-selector-shadow-dom",
-    "version": "0.3.4",
+    "version": "0.4.0",
     "description": "use querySelector syntax to search for nodes inside of (nested) shadow roots",
     "main": "src/querySelectorDeep.js",
     "scripts": {
@@ -15,7 +15,8 @@
     },
     "files": [
         "/src/",
-        "dist/querySelectorShadowDom.js"
+        "dist/querySelectorShadowDom.js",
+        "/plugins/"
     ],
     "author": "George Griffiths <GeorgeGriff>",
     "keywords": [
@@ -39,6 +40,7 @@
         "karma-rollup-preprocessor": "^6.0.0",
         "karma-spec-reporter": "0.0.32",
         "npm-watch": "^0.4.0",
+        "playwright": "^0.10.0",
         "puppeteer": "^2.0.0",
         "rollup": "^0.67.0",
         "rollup-plugin-babel": "^4.0.3",

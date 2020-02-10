@@ -18,9 +18,28 @@ Both of the methods above accept a 2nd parameter, see section `Provide alternati
 
 ## Examples
 
+### Playwright
+
+Playwright works really nicely with this package.
+
+This module exposes a playwright `selectorEngine`: https://github.com/microsoft/playwright/blob/master/docs/api.md#selectorsregisterenginefunction-args
+
+```javascript
+const { selectorEngine } = require("query-selector-shadow-dom/plugins/playwright");
+const playwright = require('playwright');
+...
+await playwright.selectors.register(selectorEngine, { name: 'shadow' })
+...
+  await page.goto('chrome://downloads');
+  // shadow= allows a css query selector that automatically pierces shadow roots.
+  await page.waitForSelector('shadow=#no-downloads span', {timeout: 3000})
+```
+
+For a full example see: https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/playwright
+
 ### Puppeteer 
 
-There are some puppeteer examples available in the exampes folder of this repository.
+There are some puppeteer examples available in the examples folder of this repository.
 
 [Puppeteer examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/puppeteer)
 
