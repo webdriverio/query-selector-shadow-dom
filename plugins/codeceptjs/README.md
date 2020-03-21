@@ -46,10 +46,12 @@ Issues:
 `waitForElement`. Obviously this is not very useful.
 I have this pr to fix the problem: https://github.com/Codeception/CodeceptJS/pull/2274
 
-- For `I.see() etc
+- For `I.see() and I.click etc
 The following PR fixes some of the other methods so they will work as expected:
 e.g. `I.see('Some text in my-element', {shadow: '.my-element'})` would now work
--  (looking for help) For `I.click` there seem to be other issues for shadow dom. relating to waitForClickable/scrollTo.
+-  There may be some issues with .click in some circumstances, see issue: https://github.com/microsoft/playwright/issues/1459
+
+- None of the other waitFor functions currently work, see ` The following methods are not supported as of right now:`
 
 You can !experiment! with this version of codeceptjs in your package.json by doing and then `npm install` (not using sem ver so beware)
 ```javascript
@@ -60,7 +62,7 @@ You can !experiment! with this version of codeceptjs in your package.json by doi
 
 ### The following methods are not supported as of right now:
 Ref code: https://github.com/Codeception/CodeceptJS/blob/master/lib/helper/Playwright.js
-- click: waitForClickable checks built into codeceptjs seems to cause issues. This might be an issue with playwright issue: `     Protocol error (DOM.scrollIntoViewIfNeeded): 'DOM.scrollIntoViewIfNeeded' wasn't found`
+- click: Clicking may not work, if you see Protocol error (DOM.scrollIntoViewIfNeeded): 'DOM.scrollIntoViewIfNeeded' wasn't found`, it might be caused by https://github.com/microsoft/playwright/issues/1459
 - waitForVisible: Can be done be requires new CodeceptJS version with this update: awaiting 0.12.0 of Playwright https://github.com/microsoft/playwright/issues/1238
 - waitForValue, waitForEnabled,waitForText: Could be done now in Codeceptjs but needs logic for (looking for help):
         - wait for element(s) to exist, check value, if not correct, retry wait for elements
