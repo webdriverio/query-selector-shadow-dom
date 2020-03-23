@@ -10,17 +10,22 @@ Goal/Example: To be able to write a test that works easily with shadow dom web c
 See Issues for what currently works and what doesn't
 
 ```javascript
+const playwright = require("playwright");
+
 Feature("downloads");
 Scenario("test something", async I => {
   I.amOnPage("chrome://downloads");
-  I.see("Files you download appear here", {shadow: "#no-downloads"});
-
+  I.see("Files you download appear here", {shadow: "#no-downloads span"});
   I.waitForVisible({shadow: "#no-downloads"}, 5);
   I.click({shadow: `[title="Search downloads"]`});
   I.waitForVisible({shadow: '#searchInput'}, 5);
   I.fillField({shadow: '#searchInput'}, "A download")
   I.waitForValue({shadow: '#searchInput'}, "A download", 5)
+  I.waitForText("No search results found", 3, {shadow: "#no-downloads span"});
+  I.clearField({shadow: '#searchInput'})
+  I.waitForValue({shadow: '#searchInput'}, "", 5)
 });
+
 ```
 
 Setup:
@@ -61,5 +66,4 @@ You can !experiment! with this version of codeceptjs in your package.json by doi
 You will also need to `npm install playwright@next`
 
 ### The following methods are not supported as of right now:
-- waitForText. Unclear why.
 - waitForNoVisibleElements (looking for help should be do-able but again need to)
