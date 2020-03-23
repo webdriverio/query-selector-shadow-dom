@@ -13,17 +13,19 @@ See Issues for what currently works and what doesn't
 Feature("downloads");
 Scenario("test something", async I => {
   I.amOnPage("chrome://downloads");
-  I.waitForElement({shadow: "#no-downloads"}, 3);
-  // doesn't work yet needs changes in Issues below
-  I.see("Files you download", {shadow: "#no-downloads"});
-  // may not work yet due to checks either in codeceptjs or puppeteer
-  I.click({shadow: "#moreActions"})
+  I.see("Files you download appear here", {shadow: "#no-downloads"});
+
+  I.waitForVisible({shadow: "#no-downloads"}, 5);
+  I.click({shadow: `[title="Search downloads"]`});
+  I.waitForVisible({shadow: '#searchInput'}, 5);
+  I.fillField({shadow: '#searchInput'}, "A download")
+  I.waitForValue({shadow: '#searchInput'}, "A download", 5)
 });
 ```
 
 Setup:
 
-1. `npm install query-selector-shadow-dom codeceptjs playwright`
+1. `npm install query-selector-shadow-dom codeceptjs playwright@next`
 2. Setup a codeceptjs project.
 3. In codeceptjs config add this shadow dom plugin
 
@@ -42,31 +44,21 @@ Setup:
 Issues:
 
 ## What works
+- You `must` have playwright@next for this to work.
 - In master of CodeceptJS as of right now the ONLY functional method for this library is:
 `waitForElement`. Obviously this is not very useful.
 I have this pr to fix the problem: https://github.com/Codeception/CodeceptJS/pull/2274
 
-- For `I.see() and I.click etc
-The following PR fixes some of the other methods so they will work as expected:
-e.g. `I.see('Some text in my-element', {shadow: '.my-element'})` would now work
--  There may be some issues with .click in some circumstances, see issue: https://github.com/microsoft/playwright/issues/1459
 
-- None of the other waitFor functions currently work, see ` The following methods are not supported as of right now:`
+- To fix most of the waitFors I have this PR: https://github.com/Codeception/CodeceptJS/pull/2277
 
 You can !experiment! with this version of codeceptjs in your package.json by doing and then `npm install` (not using sem ver so beware)
 ```javascript
 {
-    "codeceptjs": "github:GeorgeGriff/CodeCeptJS#support_custom_locators",
+    "codeceptjs": "github:Georgegriff:custom_locators_playwright_next",
 }
 ```
+You will also need to `npm install playwright@next`
 
 ### The following methods are not supported as of right now:
-Ref code: https://github.com/Codeception/CodeceptJS/blob/master/lib/helper/Playwright.js
-- click: Clicking may not work, if you see Protocol error (DOM.scrollIntoViewIfNeeded): 'DOM.scrollIntoViewIfNeeded' wasn't found`, it might be caused by https://github.com/microsoft/playwright/issues/1459
-- waitForVisible: Can be done be requires new CodeceptJS version with this update: awaiting 0.12.0 of Playwright https://github.com/microsoft/playwright/issues/1238
-- waitForValue, waitForEnabled,waitForText: Could be done now in Codeceptjs but needs logic for (looking for help):
-        - wait for element(s) to exist, check value, if not correct, retry wait for elements
-        - I've opened an issue to discuss possibility on playwright: https://github.com/microsoft/playwright/issues/1444
-
 - waitForNoVisibleElements (looking for help should be do-able but again need to)
-- wait for element(s) to exist, check number, if not correct retry wait

@@ -8,11 +8,8 @@ const querySelectorShadowDomUMD = fs.readFileSync(path.resolve(__dirname, "../..
 // a string because playwright does a .toString on a selector engine and we need to
 // make sure that query-selector-shadow-dom is injected and loaded into the function closure
 const engineString =`
-    options = options || {};
-    const name = options.name || 'shadow';
     ${querySelectorShadowDomUMD}
     return {
-        name: name,
         create(root, target) {
             return undefined;
         },
@@ -24,6 +21,6 @@ const engineString =`
         }
     }
 `
-const selectorEngine = new Function("options", engineString)
+const selectorEngine = new Function("", engineString)
 
 module.exports = { selectorEngine };

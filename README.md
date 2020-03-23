@@ -18,6 +18,12 @@ Both of the methods above accept a 2nd parameter, see section `Provide alternati
 
 ## Examples
 
+### CodeceptJS
+
+Experimental! (Requires un-releases versions of Playwright/CodeceptJS)
+
+Read: https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/plugins/codeceptjs
+
 ### Playwright
 
 Playwright works really nicely with this package.
@@ -28,6 +34,9 @@ This module exposes a playwright `selectorEngine`: https://github.com/microsoft/
 const { selectorEngine } = require("query-selector-shadow-dom/plugins/playwright");
 const playwright = require('playwright');
 ...
+// NOTE: this api was change in playwright 0.12.0 to below in comments
+// https://github.com/microsoft/playwright/blob/master/docs/api.md#selectorsregistername-script 
+//   await selectors.register('shadow', createTagNameEngine);
 await playwright.selectors.register(selectorEngine, { name: 'shadow' })
 ...
   await page.goto('chrome://downloads');

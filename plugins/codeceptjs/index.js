@@ -26,7 +26,12 @@ module.exports = function(config) {
 
     event.dispatcher.on(event.suite.before, async () => {
         if(helperName === "Playwright") {
-            await playwright.selectors.register(selectorEngine, { name: config.locator })
+            // temp handle api change in playwright may need to move to major version lib for documentation
+            try {
+                await playwright.selectors.register(selectorEngine, { name: config.locator });
+            } catch(e) {
+                await playwright.selectors.register(config.locator, selectorEngine);
+            }
         }
     });
 }
