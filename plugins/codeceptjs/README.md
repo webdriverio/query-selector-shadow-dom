@@ -61,4 +61,5 @@ You can !experiment! with this version of codeceptjs in your package.json by doi
 You will also need to `npm install playwright@next`
 
 ### The following methods are not supported as of right now:
+- waitForText. Unclear why.
 - waitForNoVisibleElements (looking for help should be do-able but again need to)
