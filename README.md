@@ -20,9 +20,8 @@ Both of the methods above accept a 2nd parameter, see section `Provide alternati
 
 ### CodeceptJS
 
-Experimental! (Requires un-releases versions of Playwright/CodeceptJS)
 
-Read: https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/plugins/codeceptjs
+More details here: https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/plugins/codeceptjs
 
 ### Playwright
 

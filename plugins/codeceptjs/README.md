@@ -1,10 +1,10 @@
 # Support for Shadow DOM in CodeceptJS
 
-- Supported CodeceptJS Helpers: Playwright
+- Supported CodeceptJS Helpers: *Playwright* only.
+- CodeceptJS 2.6.0 released webdriver.io support as an alternative if you don't want to use Playwright
 
-!! This is experimental and is awaiting several changes from Playwright/CodeceptJS respectively.
-- Basically nothing works as of right now.
-
+Support for this plugin is currently limited to Playwright, this is mostly due to the fact that playwright
+allows for the addition of `custom selector engines`.
 
 Goal/Example: To be able to write a test that works easily with shadow dom web components.
 See Issues for what currently works and what doesn't
@@ -12,8 +12,8 @@ See Issues for what currently works and what doesn't
 ```javascript
 const playwright = require("playwright");
 
-Feature("downloads");
-Scenario("test something", async I => {
+Feature("The chrome downloads page");
+Scenario("Can interact with the search box", async I => {
   I.amOnPage("chrome://downloads");
   I.see("Files you download appear here", {shadow: "#no-downloads span"});
   I.waitForVisible({shadow: "#no-downloads"}, 5);
@@ -30,9 +30,9 @@ Scenario("test something", async I => {
 
 Setup:
 
-1. `npm install query-selector-shadow-dom codeceptjs playwright@next`
-2. Setup a codeceptjs project.
-3. In codeceptjs config add this shadow dom plugin
+1. `npm install query-selector-shadow-dom codeceptjs playwright`
+2. Setup a codeceptjs project: https://codecept.io/quickstart/
+3. In `codecept.config.js` add this shadow dom plugin
 
 ```javascript
  plugins: {
@@ -43,27 +43,13 @@ Setup:
     }
   }
 ```
-4. Start using the custom locator `{shadow: "..."}` You mauy rename the locator in the config file from "shadow" to something else.
-5. Read issues below as not everything currently works
+4. Start using the custom locator `{shadow: "..."}` You may rename the locator in the config file from "shadow" to something else.
+5. Read issues below as not everything currently works.
 
 Issues:
 
 ## What works
-- You `must` have playwright@next for this to work.
-- In master of CodeceptJS as of right now the ONLY functional method for this library is:
-`waitForElement`. Obviously this is not very useful.
-I have this pr to fix the problem: https://github.com/Codeception/CodeceptJS/pull/2274
-
-
-- To fix most of the waitFors I have this PR: https://github.com/Codeception/CodeceptJS/pull/2277
-
-You can !experiment! with this version of codeceptjs in your package.json by doing and then `npm install` (not using sem ver so beware)
-```javascript
-{
-    "codeceptjs": "github:Georgegriff:custom_locators_playwright_next",
-}
-```
-You will also need to `npm install playwright@next`
+- Most of the APIs listed here should work with shadow dom https://codecept.io/helpers/Playwright/#playwright
 
 ### The following methods are not supported as of right now:
-- waitForNoVisibleElements (looking for help should be do-able but again need to)
+- waitForNoVisibleElements (looking for help should be do-able, feel free to PR to CodeceptJS)
