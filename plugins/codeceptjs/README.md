@@ -10,8 +10,6 @@ Goal/Example: To be able to write a test that works easily with shadow dom web c
 See Issues for what currently works and what doesn't
 
 ```javascript
-const playwright = require("playwright");
-
 Feature("The chrome downloads page");
 Scenario("Can interact with the search box", async I => {
   I.amOnPage("chrome://downloads");

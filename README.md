@@ -32,11 +32,8 @@ This module exposes a playwright `selectorEngine`: https://github.com/microsoft/
 ```javascript
 const { selectorEngine } = require("query-selector-shadow-dom/plugins/playwright");
 const playwright = require('playwright');
-...
-// NOTE: this api was change in playwright 0.12.0 to below in comments
-// https://github.com/microsoft/playwright/blob/master/docs/api.md#selectorsregistername-script 
-//   await selectors.register('shadow', createTagNameEngine);
-await playwright.selectors.register(selectorEngine, { name: 'shadow' })
+
+ await selectors.register('shadow', createTagNameEngine);
 ...
   await page.goto('chrome://downloads');
   // shadow= allows a css query selector that automatically pierces shadow roots.

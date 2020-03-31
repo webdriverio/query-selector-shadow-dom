@@ -2,7 +2,7 @@ const { selectorEngine } = require("query-selector-shadow-dom/plugins/playwright
 const playwright = require('playwright')
 
 const main = async () => {
-  await playwright.selectors.register(selectorEngine, { name: 'shadow' })
+  await playwright.selectors.register('shadow', selectorEngine)
 
   const browser = await playwright.chromium.launch({ headless: false})
   const context = await browser.newContext({ viewport: null })
