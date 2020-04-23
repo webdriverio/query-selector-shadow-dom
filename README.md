@@ -25,7 +25,7 @@ More details here: https://github.com/Georgegriff/query-selector-shadow-dom/blob
 
 ### Playwright
 
-Update: as of Playwright v0.14.0 their CSS and text selectors work with shadow Dom our of the box, you don't need this library
+Update: as of Playwright v0.14.0 their CSS and text selectors work with shadow Dom out of the box, you don't need this library anymore for Playwright.
 
 Playwright works really nicely with this package.
 
