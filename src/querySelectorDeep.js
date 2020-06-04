@@ -164,12 +164,7 @@ function collectAllElementsDeep(selector = null, root) {
 
   rev-02 incorporate kyle's changes 3/2/42014
 */
-if (typeof require == 'function' && typeof module != 'undefined') {
-    // enable to re-use in a browser without require.js
-    module.exports = normalizeSelector;
-  }
-
-
+  /*  istanbul ignore next */
   function normalizeSelector(sel) {
 
     // save unmatched text, if any
