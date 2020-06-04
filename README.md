@@ -20,12 +20,17 @@ Both of the methods above accept a 2nd parameter, see section `Provide alternati
 
 ### CodeceptJS
 
-
 More details here: https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/plugins/codeceptjs
+
+### Puppeteer 
+
+There are some puppeteer examples available in the examples folder of this repository.
+
+[Puppeteer examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/puppeteer)
 
 ### Playwright
 
-Update: as of Playwright v0.14.0 their CSS and text selectors work with shadow Dom our of the box, you don't need this library
+Update: as of Playwright v0.14.0 their CSS and text selectors work with shadow Dom our of the box, you don't need this library!
 
 Playwright works really nicely with this package.
 
@@ -43,13 +48,6 @@ const playwright = require('playwright');
 ```
 
 For a full example see: https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/playwright
-
-### Puppeteer 
-
-There are some puppeteer examples available in the examples folder of this repository.
-
-[Puppeteer examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/puppeteer)
-
 
 ### Provide alternative node
 ```javascript

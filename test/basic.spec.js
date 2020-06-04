@@ -198,6 +198,34 @@ describe("Basic Suite", function() {
             expect(testComponents.length).toEqual(5);
         });
 
+        it('can handle spacing around attribute values', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2">Content</div>'
+            });
+            const test2 = createTestComponent(testComponent, {
+                childClassName: 'header-2'
+            });
+            test2.setAttribute('data-test', 'Hello, World')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1 [ data-test = "Hello, World" ], .header-2, .header-1`);
+            expect(testComponents.length).toEqual(5);
+        });
+
+        it('can handle spacing around attribute values with [ in attribute', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2">Content</div>'
+            });
+            const test2 = createTestComponent(testComponent, {
+                childClassName: 'header-2'
+            });
+            test2.setAttribute('data-braces-test', ' [ Hello, World ] ')
+            testComponent.classList.add('header-1');
+            const testComponents = querySelectorAllDeep(`.header-1 [ data-braces-test = " [ Hello, World ] " ], .header-2, .header-1`);
+            expect(testComponents.length).toEqual(5);
+        });
+
         it('can escaped comma in attribute values', function() {
             const testComponent = createTestComponent(parent, {
                 childClassName: 'header-1',
