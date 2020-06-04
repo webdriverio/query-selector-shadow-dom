@@ -1,4 +1,4 @@
-const { selectorEngine } = require("query-selector-shadow-dom/plugins/playwright");
+const { selectorEngine } = require("../../plugins/playwright");
 const playwright = require('playwright')
 
 const main = async () => {
@@ -10,7 +10,9 @@ const main = async () => {
 
   await page.goto('chrome://downloads')
 
-  await page.waitForSelector('shadow=#no-downloads span', {timeout: 3000})
+  const element = await page.waitForSelector('.//div', {timeout: 3000})
+  const span = await element.$$("div > .illustration + span")
+  console.log(span)
   await new Promise(resolve => setTimeout(resolve, 3000))   
 
   await page.close()
