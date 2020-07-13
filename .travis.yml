@@ -17,6 +17,7 @@ install:
 script:
   - mkdir -p dist
   - npm run test:ci
+  - npm run e2e:protractor
 after_success:
   - npm install -g codecov
   - codecov
