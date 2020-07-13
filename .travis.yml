@@ -1,10 +1,11 @@
 language: node_js
+dist: xenial
+os: linux
 node_js:
   - "10"
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-dist: trusty
 sudo: required
 addons:
   chrome: stable
