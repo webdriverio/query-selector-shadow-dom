@@ -1,19 +1,18 @@
 const puppeteer = require('puppeteer');
-const { queryHandler } = require("../../plugins/puppeteer");
+const { QueryHandler } = require("../../plugins/puppeteer");
 (async () => {
     try {
-        puppeteer.__experimental_registerCustomQueryHandler('shadow', queryHandler);
+        await puppeteer.__experimental_registerCustomQueryHandler('shadow', QueryHandler);
         const browser = await puppeteer.launch({
             headless: false,
             devtools: true
         })
         const page = await browser.newPage()
-        await page.goto('http://127.0.0.1:5501/test/')
-
+        await page.goto('http://127.0.0.1:5500/test/')
 
         // ensure btn exists and return it
+        await page.waitForSelector("shadow/.btn-in-shadow-dom");
         const btn = await page.$("shadow/.btn-in-shadow-dom");
-        console.log(btn);
         await btn.click();
         // check btn was clicked (this page expected btn to change text of output)
         const outputSpan = await page.$("shadow/.output");
