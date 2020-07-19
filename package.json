@@ -1,6 +1,6 @@
 {
     "name": "query-selector-shadow-dom",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "use querySelector syntax to search for nodes inside of (nested) shadow roots",
     "main": "src/querySelectorDeep.js",
     "scripts": {
@@ -8,6 +8,7 @@
         "build": "rollup -c",
         "test": "karma start",
         "test:ci": "karma start --browsers ChromeHeadless,Firefox",
+        "e2e:protractor": "protractor protractor.conf.js",
         "watch": "npm-watch"
     },
     "watch": {
@@ -35,6 +36,7 @@
         "@babel/preset-env": "^7.1.0",
         "@webcomponents/webcomponentsjs": "^2.0.2",
         "babelrc-rollup": "^3.0.0",
+        "chromedriver": "^83.0.1",
         "codeceptjs": "^2.6.0",
         "jasmine": "^3.1.0",
         "karma": "^3.1.1",
@@ -46,6 +48,7 @@
         "karma-spec-reporter": "0.0.32",
         "npm-watch": "^0.4.0",
         "playwright": "^0.12.1",
+        "protractor": "^7.0.0",
         "puppeteer": "^2.0.0",
         "rollup": "^0.67.0",
         "rollup-plugin-babel": "^4.0.3",

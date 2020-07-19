@@ -16,7 +16,7 @@ import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-d
 
 Both of the methods above accept a 2nd parameter, see section `Provide alternative node`. This will change the starting element to search from i.e. it will find ancestors of that node that match the query.
 
-## Examples
+## Integrations
 
 ### CodeceptJS
 
@@ -48,6 +48,42 @@ const playwright = require('playwright');
 ```
 
 For a full example see: https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/playwright
+
+
+### Protractor
+
+This project provides a Protractor plugin, which can be enabled in your [`protractor.conf.js`](https://www.protractortest.org/#/api-overview) file:
+
+```javascript
+exports.config = {
+    plugins: [{
+        package: 'query-selector-shadow-dom/plugins/protractor'
+    }],
+    
+    // ... other Protractor-specific config
+};
+```
+
+The plugin registers a new [locator](https://www.protractortest.org/#/api?view=ProtractorBy) - `by.shadowDomCss(selector /* string */)`, which can be used in regular Protractor tests:
+
+```javascript
+element(by.shadowDomCss('#item-in-shadow-dom'))
+```
+
+The locator also works with [Serenity/JS](https://serenity-js.org) tests that [use Protractor](https://serenity-js.org/modules/protractor) under the hood:
+
+```typescript
+import 'query-selector-shadow-dom/plugins/protractor';
+import { Target } from '@serenity-js/protractor'
+import { by } from 'protractor';
+
+const ElementOfInterest = Target.the('element of interest')
+    .located(by.shadowDomCss('#item-in-shadow-dom'))
+```
+
+See the [end-to-end tests](https://github.com/Georgegriff/query-selector-shadow-dom/blob/features/protractor-locator/test/protractor-locator.e2e.js) for more examples.
+
+## Examples
 
 ### Provide alternative node
 ```javascript
