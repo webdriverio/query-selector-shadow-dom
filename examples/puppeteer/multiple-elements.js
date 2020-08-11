@@ -8,13 +8,11 @@ const { QueryHandler } = require("../../plugins/puppeteer");
         })
         const page = await browser.newPage()
         await page.goto('http://127.0.0.1:5500/test/')
-
-        const inputElement = await page.waitForSelector("shadow/#type-to-input");
-
-        await inputElement.type("Typed text to input");
-
-        const value = await page.evaluate(inputElement => inputElement.value, inputElement);
-        console.log("Value", value);
+        await page.waitForSelector("shadow/.btn-in-shadow-dom")
+        const elements = await page.$$("*");
+        const elementsShadow = await page.$$("shadow/*");
+        console.log("All Elements on Page Excluding Shadow Dom", elements.length);
+        console.log("All Elements on Page Including Shadow Dom", elementsShadow.length);
 
         await browser.close()
 
