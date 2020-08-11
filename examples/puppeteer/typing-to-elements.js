@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const { QueryHandler } = require("../../plugins/puppeteer");
+const {  QueryHandler } = require("query-selector-shadow-dom/plugins/puppeteer");
 (async () => {
     try {
         await puppeteer.__experimental_registerCustomQueryHandler('shadow', QueryHandler);
