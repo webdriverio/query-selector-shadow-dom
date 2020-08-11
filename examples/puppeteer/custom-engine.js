@@ -1,4 +1,4 @@
-const {  QueryHandler } = require("../../plugins/puppeteer");
+const {  QueryHandler } = require("query-selector-shadow-dom/plugins/puppeteer");
 const puppeteer = require('puppeteer')
 
 const main = async () => {
