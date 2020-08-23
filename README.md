@@ -3,6 +3,7 @@
 querySelector that can pierce Shadow DOM roots without knowing the path through nested shadow roots. Useful for automated testing of Web Components e.g. with Selenium, Puppeteer.
 
 
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G221OBA)
 ```javascript
 
 // available as an ES6 module for importing in Browser environments
