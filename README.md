@@ -37,15 +37,22 @@ const { locatorStrategy } = require('query-selector-shadow-dom/plugins/webdriver
         }
     })
 
+    // The magic - registry custom strategy
+    browser.addLocatorStrategy('shadow', locatorStrategy);
+
+
+    // now you have a `shadow` custom locator.
+
     // All elements on the page
     await browser.waitUntil(() => browser.custom$("shadow", ".btn-in-shadow-dom"));
     const elements = await browser.$$("*");
+
     const elementsShadow = await browser.custom$$("shadow", "*");
+
     console.log("All Elements on Page Excluding Shadow Dom", elements.length);
     console.log("All Elements on Page Including Shadow Dom", elementsShadow.length);
 
-    // registry custom strategy
-    browser.addLocatorStrategy('shadow', locatorStrategy);
+
     await browser.url('http://127.0.0.1:5500/test/')
     // find input element in shadow dom
     const input = await browser.custom$('shadow', '#type-to-input');
