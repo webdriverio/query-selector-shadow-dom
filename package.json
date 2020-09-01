@@ -44,7 +44,6 @@
         "@wdio/selenium-standalone-service": "^6.4.0",
         "@webcomponents/webcomponentsjs": "^2.0.2",
         "babelrc-rollup": "^3.0.0",
-        "chromedriver": "^83.0.1",
         "codeceptjs": "^2.6.0",
         "jasmine": "^3.1.0",
         "karma": "^3.1.1",
