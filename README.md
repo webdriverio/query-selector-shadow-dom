@@ -17,11 +17,57 @@ import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-d
 
 Both of the methods above accept a 2nd parameter, see section `Provide alternative node`. This will change the starting element to search from i.e. it will find ancestors of that node that match the query.
 
-## Integrations
+## Plugins
 
-### CodeceptJS
+### WebdriverIO
+This plugin implements a custom selector strategy: https://webdriver.io/docs/selectors.html#custom-selector-strategies
 
-More details here: https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/plugins/codeceptjs
+```javascript
+
+// make sure you have selenium standalone running
+const { remote } = require('webdriverio');
+const { locatorStrategy } = require('query-selector-shadow-dom/plugins/webdriverio');
+
+(async () => {
+    const browser = await remote({
+        logLevel: 'error',
+        path: '/wd/hub',
+        capabilities: {
+            browserName: 'chrome'
+        }
+    })
+
+    // All elements on the page
+    await browser.waitUntil(() => browser.custom$("shadow", ".btn-in-shadow-dom"));
+    const elements = await browser.$$("*");
+    const elementsShadow = await browser.custom$$("shadow", "*");
+    console.log("All Elements on Page Excluding Shadow Dom", elements.length);
+    console.log("All Elements on Page Including Shadow Dom", elementsShadow.length);
+
+    // registry custom strategy
+    browser.addLocatorStrategy('shadow', locatorStrategy);
+    await browser.url('http://127.0.0.1:5500/test/')
+    // find input element in shadow dom
+    const input = await browser.custom$('shadow', '#type-to-input');
+    // type to input ! Does not work in firefox, see above.
+    await input.setValue('Typed text to input');
+    // Firefox workaround
+    // await browser.execute((input, val) => input.value = val, input, 'Typed text to input')
+
+    await browser.deleteSession()
+})().catch((e) => console.error(e))
+```
+
+#### Known issues
+- https://webdriver.io/blog/2019/02/22/shadow-dom-support.html#browser-support
+
+- From the above, firefox `setValue` does NOT currently work.
+`. A workaround for now is to use a custom command (or method on your component object) that sets the input field's value via browser.execute(function).`
+
+- Safari pretty much doesn't work, not really a surprise.
+
+There are some webdriver examples available in the examples folder of this repository.
+[WebdriverIO examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/webdriverio)
 
 ### Puppeteer 
 

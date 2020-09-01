@@ -1,6 +1,6 @@
 {
     "name": "query-selector-shadow-dom",
-    "version": "0.6.2",
+    "version": "0.7.0",
     "description": "use querySelector syntax to search for nodes inside of (nested) shadow roots",
     "main": "src/querySelectorDeep.js",
     "scripts": {
@@ -9,7 +9,8 @@
         "test": "karma start",
         "test:ci": "karma start --browsers ChromeHeadless,Firefox",
         "e2e:protractor": "protractor protractor.conf.js",
-        "watch": "npm-watch"
+        "watch": "npm-watch",
+        "selenium": "./node_modules/.bin/selenium-standalone install && ./node_modules/.bin/selenium-standalone start"
     },
     "watch": {
         "test": "{src,test}/*.js"
@@ -28,12 +29,18 @@
         "queryselector",
         "shadowdom",
         "web-components",
-        "testing"
+        "testing",
+        "webdriver",
+        "protractor",
+        "selenium",
+        "webdriverio",
+        "codeceptjs"
     ],
     "license": "MIT",
     "devDependencies": {
         "@babel/core": "^7.1.2",
         "@babel/preset-env": "^7.1.0",
+        "@wdio/selenium-standalone-service": "^6.4.0",
         "@webcomponents/webcomponentsjs": "^2.0.2",
         "babelrc-rollup": "^3.0.0",
         "chromedriver": "^83.0.1",
@@ -54,7 +61,9 @@
         "rollup-plugin-babel": "^4.0.3",
         "rollup-plugin-istanbul": "^2.0.1",
         "rollup-plugin-sourcemaps": "^0.4.2",
-        "rollup-plugin-uglify": "^6.0.0"
+        "rollup-plugin-uglify": "^6.0.0",
+        "selenium-standalone": "^6.19.0",
+        "webdriverio": "^6.4.5"
     },
     "repository": {
         "type": "git",
