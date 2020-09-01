@@ -12,6 +12,23 @@ import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-d
 
 ```
 
+## What is a nested shadow root?
+![Image of Shadow DOM elements in dev tools](./Chrome-example.png)
+You can see that `.dropdown-item:not([hidden])` (Open downloads folder) is several layers deep in shadow roots, most tools will make you do something like
+
+```javascript
+document.querySelector("body > downloads-manager").shadowRoot.querySelector("#toolbar").shadowRoot.querySelector(".dropdown-item:not([hidden])")
+```
+EW!
+
+with query-selector-shadow-dom:
+
+```javascript
+import { querySelectorAllDeep, querySelectorDeep } from 'query-selector-shadow-dom';
+querySelectorDeep(".dropdown-item:not([hidden])");
+```
+
+## API
 - querySelectorAllDeep - mirrors `querySelectorAll` from the browser, will return an `Array` of elements matching the query
 - querySelectorDeep - mirrors `querySelector` from the browser, will return the `first` matching element of the query.
 
@@ -60,6 +77,36 @@ const { locatorStrategy } = require('query-selector-shadow-dom/plugins/webdriver
     await input.setValue('Typed text to input');
     // Firefox workaround
     // await browser.execute((input, val) => input.value = val, input, 'Typed text to input')
+
+    await browser.deleteSession()
+})().catch((e) => console.error(e))
+```
+
+#### How is this different to `shadow$`
+
+`shadow$` only goes one level deep in a shadow root.
+
+Take this example.
+![Image of Shadow DOM elements in dev tools](./Chrome-example.png)
+You can see that `.dropdown-item:not([hidden])` (Open downloads folder) is several layers deep in shadow roots, but this library will find it, `shadow$` would not.
+You would have to construct a path via css or javascript all the way through to find the right element.
+
+```javascript
+const { remote } = require('webdriverio')
+const { locatorStrategy } = require('query-selector-shadow-dom/plugins/webdriverio');
+
+(async () => {
+    const browser = await remote({capabilities: {browserName: 'chrome'}})
+
+    browser.addLocatorStrategy('shadow', locatorStrategy);
+
+    await browser.url('chrome://downloads')
+    const moreActions = await browser.custom$('shadow', '#moreActions');
+    await moreActions.click();
+    const span = await browser.custom$('shadow', '.dropdown-item:not([hidden])');
+    const text = await span.getText()
+    // prints `Open downloads folder`
+    console.log(text);
 
     await browser.deleteSession()
 })().catch((e) => console.error(e))
