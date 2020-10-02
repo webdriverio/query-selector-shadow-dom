@@ -17,15 +17,15 @@
 * Another example querySelectorAllDeep('#downloads-list div#title-area + a');
 e.g.
 */
-export function querySelectorAllDeep(selector, root = document) {
-    return _querySelectorDeep(selector, true, root);
+export function querySelectorAllDeep(selector, root = document, allElements = null) {
+    return _querySelectorDeep(selector, true, root, allElements);
 }
 
-export function querySelectorDeep(selector, root = document) {
-    return _querySelectorDeep(selector, false, root);
+export function querySelectorDeep(selector, root = document, allElements = null) {
+    return _querySelectorDeep(selector, false, root, allElements);
 }
 
-function _querySelectorDeep(selector, findMany, root) {
+function _querySelectorDeep(selector, findMany, root, allElements = null) {
     selector = normalizeSelector(selector)
     let lightElement = root.querySelector(selector);
 
@@ -51,7 +51,7 @@ function _querySelectorDeep(selector, findMany, root) {
                 // filter out entry white selectors
                 .filter((entry) => !!entry);
             const possibleElementsIndex = splitSelector.length - 1;
-            const possibleElements = collectAllElementsDeep(splitSelector[possibleElementsIndex], root);
+            const possibleElements = collectAllElementsDeep(splitSelector[possibleElementsIndex], root, allElements);
             const findElements = findMatchingElement(splitSelector, possibleElementsIndex, root);
             if (findMany) {
                 acc = acc.concat(possibleElements.filter(findElements));
@@ -133,26 +133,29 @@ function findParentOrHost(element, root) {
  * @author ebidel@ (Eric Bidelman)
  * License Apache-2.0
  */
-function collectAllElementsDeep(selector = null, root) {
-    const allElements = [];
+export function collectAllElementsDeep(selector = null, root, _allElements = null) {
+    let allElements = [];
 
-    const findAllElements = function(nodes) {
-        for (let i = 0, el; el = nodes[i]; ++i) {
-            allElements.push(el);
-            // If the element has a shadow root, dig deeper.
-            if (el.shadowRoot) {
-                findAllElements(el.shadowRoot.querySelectorAll('*'));
+    if (_allElements) {
+        allElements = _allElements;
+    } else {
+        const findAllElements = function(nodes) {
+            for (let i = 0, el; el = nodes[i]; ++i) {
+                allElements.push(el);
+                // If the element has a shadow root, dig deeper.
+                if (el.shadowRoot) {
+                    findAllElements(el.shadowRoot.querySelectorAll('*'));
+                }
             }
         }
-    };
-    if(root.shadowRoot) {
-        findAllElements(root.shadowRoot.querySelectorAll('*'));
+        if(root.shadowRoot) {
+            findAllElements(root.shadowRoot.querySelectorAll('*'));
+        }
+        findAllElements(root.querySelectorAll('*'));
     }
-    findAllElements(root.querySelectorAll('*'));
 
     return selector ? allElements.filter(el => el.matches(selector)) : allElements;
 }
-
 
 // normalize-selector-rev-02.js
 /*
