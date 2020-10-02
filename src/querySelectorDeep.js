@@ -48,10 +48,14 @@ function _querySelectorDeep(selector, findMany, root, allElements = null) {
                     //remove white space at start of selector
                     .replace(/^\s+/g, '')
                     .replace(/\s*([>+~]+)\s*/g, '$1'), ' ')
-                // filter out entry white selectors
-                .filter((entry) => !!entry);
+                    // filter out entry white selectors
+                    .filter((entry) => !!entry)
+                    // convert "a > b" to ["a", "b"]
+                    .map((entry) => splitByCharacterUnlessQuoted(entry, '>'));
+
             const possibleElementsIndex = splitSelector.length - 1;
-            const possibleElements = collectAllElementsDeep(splitSelector[possibleElementsIndex], root, allElements);
+            const lastSplitPart = splitSelector[possibleElementsIndex][splitSelector[possibleElementsIndex].length - 1]
+            const possibleElements = collectAllElementsDeep(lastSplitPart, root, allElements);
             const findElements = findMatchingElement(splitSelector, possibleElementsIndex, root);
             if (findMany) {
                 acc = acc.concat(possibleElements.filter(findElements));
@@ -79,7 +83,23 @@ function findMatchingElement(splitSelector, possibleElementsIndex, root) {
         let parent = element;
         let foundElement = false;
         while (parent && !isDocumentNode(parent)) {
-            const foundMatch = parent.matches(splitSelector[position]);
+            let foundMatch = true
+            if (splitSelector[position].length === 1) {
+                foundMatch = parent.matches(splitSelector[position]);
+            } else {
+                // selector is in the format "a > b"
+                // make sure a few parents match in order
+                const reversedParts = ([]).concat(splitSelector[position]).reverse()
+                let newParent = parent
+                for (const part of reversedParts) {
+                    if (!newParent || !newParent.matches(part)) {
+                        foundMatch = false
+                        break
+                    }
+                    newParent = findParentOrHost(newParent, root);
+                }
+            }
+
             if (foundMatch && position === 0) {
                 foundElement = true;
                 break;
