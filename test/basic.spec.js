@@ -1,4 +1,4 @@
-import { querySelectorAllDeep, querySelectorDeep } from '../src/querySelectorDeep.js';
+import { querySelectorAllDeep, querySelectorDeep, collectAllElementsDeep } from '../src/querySelectorDeep.js';
 import { createTestComponent, createNestedComponent, COMPONENT_NAME, createChildElements } from './createTestComponent.js';
 
 
@@ -31,6 +31,10 @@ describe("Basic Suite", function() {
 
     it("exports querySelectorDeep function", function() {
         expect(querySelectorDeep).toEqual(jasmine.any(Function));
+    });
+
+    it("exports collectAllElementsDeep function", function() {
+        expect(collectAllElementsDeep).toEqual(jasmine.any(Function));
     });
 
     it("querySelectorDeep returns null when not found", function() {
@@ -136,6 +140,18 @@ describe("Basic Suite", function() {
             testComponent.classList.add('container');
             const testComponents = querySelectorAllDeep(`.container .find-me`);
             expect(testComponents.length).toEqual(1);
+        });
+
+        it('can see inside the shadowRoot with ">" in selector', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2"><div class="find-me"></div></div>'
+            });
+            testComponent.shadowRoot.querySelector('.header-2').host = "test.com";
+            testComponent.classList.add('container');
+            const testComponents = querySelectorAllDeep(`.container > div > .header-2 > .find-me`);
+            expect(testComponents.length).toEqual(1);
+            expect(testComponents[0].classList.contains('find-me')).toEqual(true);
         });
 
         it('can handle extra white space in selectors', function() {
@@ -311,6 +327,35 @@ describe("Basic Suite", function() {
             const testComponent = querySelectorAllDeep('.inner-content', root);
             expect(testComponent.length).toEqual(1);
 
+        });
+
+        it('can cache collected elements with collectAllElementsDeep', function() {
+            const root = document.createElement('div');
+            parent.appendChild(root);
+
+            createTestComponent(root, {
+                childClassName: 'inner-content'
+            });
+
+            createTestComponent(parent, {
+                childClassName: 'inner-content'
+            });
+            const collectedElements = collectAllElementsDeep('', root)
+            expect(collectedElements.length).toEqual(4);
+
+            const testComponents = querySelectorAllDeep('.inner-content', root, collectedElements);
+            expect(testComponents.length).toEqual(1);
+
+            // remove element from dom
+            testComponents[0].remove()
+
+            // not found in dom
+            const testComponents2 = querySelectorAllDeep('.inner-content', root);
+            expect(testComponents2.length).toEqual(0);
+
+            // still there with cached collectedElements
+            const testComponents3 = querySelectorAllDeep('.inner-content', root, collectedElements);
+            expect(testComponents3.length).toEqual(1);
         });
 
         it('can query nodes in an iframe', function(done) {
