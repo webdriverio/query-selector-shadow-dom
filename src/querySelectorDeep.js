@@ -150,7 +150,7 @@ function collectAllElementsDeep(selector = null, root) {
     }
     findAllElements(root.querySelectorAll('*'));
 
-    return selector ? allElements.filter(el => el.matches(selector)) : allElements;
+    return allElements.filter(el => el.matches(selector));
 }
 
 
