@@ -151,6 +151,7 @@ describe("Basic Suite", function() {
             testComponent.classList.add('container');
             const testComponents = querySelectorAllDeep(`.container > div > .header-2 > .find-me`);
             expect(testComponents.length).toEqual(1);
+            expect(testComponents[0].classList.contains('find-me')).toEqual(true);
         });
 
         it('can handle extra white space in selectors', function() {
