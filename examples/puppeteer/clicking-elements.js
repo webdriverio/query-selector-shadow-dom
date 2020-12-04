@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const {  QueryHandler } = require("query-selector-shadow-dom/plugins/puppeteer");
 (async () => {
     try {
-        await puppeteer.__experimental_registerCustomQueryHandler('shadow', QueryHandler);
+        await puppeteer.registerCustomQueryHandler('shadow', QueryHandler);
         const browser = await puppeteer.launch({
             headless: false,
             devtools: true
