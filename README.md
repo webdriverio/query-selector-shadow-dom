@@ -125,6 +125,10 @@ There are some webdriver examples available in the examples folder of this repos
 
 ### Puppeteer 
 
+Update: As of 5.4.0 Puppeteer now has a built in shadow Dom selector, this module might not be required for Puppeteer anymore.
+They don't have any documentation: https://github.com/puppeteer/puppeteer/pull/6509
+
+
 There are some puppeteer examples available in the examples folder of this repository.
 
 [Puppeteer examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/puppeteer)
