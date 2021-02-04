@@ -154,6 +154,29 @@ describe("Basic Suite", function() {
             expect(testComponents[0].classList.contains('find-me')).toEqual(true);
         });
 
+        it('handles descendant selector > that dooes not match child', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2"><div class="find-me"></div></div>'
+            });
+            testComponent.shadowRoot.querySelector('.header-2').host = "test.com";
+            testComponent.classList.add('container');
+            const testComponents = querySelectorAllDeep(`.container > div > .header-2 > .doesnt-exist`);
+            expect(testComponents.length).toEqual(0);
+        });
+
+        it('handles descendant selector where child exists but parent does not', function() {
+            const testComponent = createTestComponent(parent, {
+                childClassName: 'header-1',
+                internalHTML: '<div class="header-2"><div class="find-me"></div></div>'
+            });
+            testComponent.shadowRoot.querySelector('.header-2').host = "test.com";
+            testComponent.classList.add('container');
+            const testComponents = querySelectorAllDeep(`.container > div > .doesnt-exist > .find-me`);
+            expect(testComponents.length).toEqual(0);
+        });
+
+
         it('can handle extra white space in selectors', function() {
             const testComponent = createTestComponent(parent, {
                 childClassName: 'header-1',
@@ -340,7 +363,7 @@ describe("Basic Suite", function() {
             createTestComponent(parent, {
                 childClassName: 'inner-content'
             });
-            const collectedElements = collectAllElementsDeep('', root)
+            const collectedElements = collectAllElementsDeep('*', root)
             expect(collectedElements.length).toEqual(4);
 
             const testComponents = querySelectorAllDeep('.inner-content', root, collectedElements);
