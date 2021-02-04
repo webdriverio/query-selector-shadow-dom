@@ -177,6 +177,5 @@ export function collectAllElementsDeep(selector = null, root, cachedElements = n
         findAllElements(root.querySelectorAll('*'));
     }
 
-    return allElements.filter(el => el.matches(selector));
-}
+    return selector ? allElements.filter(el => el.matches(selector)) : allElements;	}
 

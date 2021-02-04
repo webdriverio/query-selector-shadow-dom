@@ -381,6 +381,21 @@ describe("Basic Suite", function() {
             expect(testComponents3.length).toEqual(1);
         });
 
+        it('empty collectAllElementsDeep find all elements', function() {
+            const root = document.createElement('div');
+            parent.appendChild(root);
+
+            createTestComponent(root, {
+                childClassName: 'inner-content'
+            });
+
+            createTestComponent(parent, {
+                childClassName: 'inner-content'
+            });
+            const collectedElements = collectAllElementsDeep('', root);
+            expect(collectedElements.length).toEqual(4);
+        });
+
         it('can query nodes in an iframe', function(done) {
 
             const innerframe = `<p class='child'>Content</p>`;
@@ -390,7 +405,6 @@ describe("Basic Suite", function() {
             setTimeout(() => {
                 const iframe = querySelectorDeep('#frame');
                 const testComponents = querySelectorAllDeep('.child', iframe.contentDocument);
-                debugger;
                 expect(testComponents.length).toEqual(1);
                 expect(testComponents[0].textContent).toEqual("Content");
                 done();
