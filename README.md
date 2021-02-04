@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Georgegriff/query-selector-shadow-dom.svg?branch=master)](https://travis-ci.org/Georgegriff/query-selector-shadow-dom)  [![npm version](https://badge.fury.io/js/query-selector-shadow-dom.svg)](https://badge.fury.io/js/query-selector-shadow-dom) [![codecov](https://codecov.io/gh/Georgegriff/query-selector-shadow-dom/branch/master/graph/badge.svg)](https://codecov.io/gh/Georgegriff/query-selector-shadow-dom)
+[![Build Status](https://travis-ci.org/Georgegriff/query-selector-shadow-dom.svg?branch=main)](https://travis-ci.org/Georgegriff/query-selector-shadow-dom)  [![npm version](https://badge.fury.io/js/query-selector-shadow-dom.svg)](https://badge.fury.io/js/query-selector-shadow-dom) [![codecov](https://codecov.io/gh/Georgegriff/query-selector-shadow-dom/branch/main/graph/badge.svg)](https://codecov.io/gh/Georgegriff/query-selector-shadow-dom)
 # query-selector-shadow-dom
 querySelector that can pierce Shadow DOM roots without knowing the path through nested shadow roots. Useful for automated testing of Web Components e.g. with Selenium, Puppeteer.
 
@@ -31,6 +31,7 @@ querySelectorDeep(".dropdown-item:not([hidden])");
 ## API
 - querySelectorAllDeep - mirrors `querySelectorAll` from the browser, will return an `Array` of elements matching the query
 - querySelectorDeep - mirrors `querySelector` from the browser, will return the `first` matching element of the query.
+- collectAllElementsDeep - collects all elements on the page, including shadow dom
 
 Both of the methods above accept a 2nd parameter, see section `Provide alternative node`. This will change the starting element to search from i.e. it will find ancestors of that node that match the query.
 
@@ -121,13 +122,13 @@ const { locatorStrategy } = require('query-selector-shadow-dom/plugins/webdriver
 - Safari pretty much doesn't work, not really a surprise.
 
 There are some webdriver examples available in the examples folder of this repository.
-[WebdriverIO examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/webdriverio)
+[WebdriverIO examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/main/examples/webdriverio)
 
 ### Puppeteer 
 
 There are some puppeteer examples available in the examples folder of this repository.
 
-[Puppeteer examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/puppeteer)
+[Puppeteer examples](https://github.com/Georgegriff/query-selector-shadow-dom/blob/main/examples/puppeteer)
 
 ### Playwright
 
@@ -135,7 +136,7 @@ Update: as of Playwright v0.14.0 their CSS and text selectors work with shadow D
 
 Playwright works really nicely with this package.
 
-This module exposes a playwright `selectorEngine`: https://github.com/microsoft/playwright/blob/master/docs/api.md#selectorsregisterenginefunction-args
+This module exposes a playwright `selectorEngine`: https://github.com/microsoft/playwright/blob/main/docs/api.md#selectorsregisterenginefunction-args
 
 ```javascript
 const { selectorEngine } = require("query-selector-shadow-dom/plugins/playwright");
@@ -148,7 +149,7 @@ const playwright = require('playwright');
   await page.waitForSelector('shadow=#no-downloads span', {timeout: 3000})
 ```
 
-For a full example see: https://github.com/Georgegriff/query-selector-shadow-dom/blob/master/examples/playwright
+For a full example see: https://github.com/Georgegriff/query-selector-shadow-dom/blob/main/examples/playwright
 
 
 ### Protractor

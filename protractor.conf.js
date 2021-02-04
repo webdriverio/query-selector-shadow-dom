@@ -5,7 +5,7 @@ exports.config = {
     SELENIUM_PROMISE_MANAGER: false,
     directConnect: true,
 
-    // https://github.com/angular/protractor/blob/master/docs/timeouts.md
+    // https://github.com/angular/protractor/blob/main/docs/timeouts.md
     allScriptsTimeout: 110000,
 
     specs: [ './test/protractor-locator.e2e.js', ],
