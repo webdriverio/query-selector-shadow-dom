@@ -5,6 +5,8 @@
     "main": "src/querySelectorDeep.js",
     "scripts": {
         "prepublish": "npm run build",
+        "prebuild": "npm run lint",
+        "lint": "eslint src/**/*.js",
         "build": "rollup -c",
         "test": "karma start",
         "test:ci": "karma start --browsers ChromeHeadless,Firefox",
@@ -45,6 +47,7 @@
         "@webcomponents/webcomponentsjs": "^2.0.2",
         "babelrc-rollup": "^3.0.0",
         "codeceptjs": "^2.6.0",
+        "eslint": "^7.19.0",
         "jasmine": "^3.1.0",
         "karma": "^3.1.1",
         "karma-chrome-launcher": "^2.2.0",

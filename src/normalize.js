@@ -36,14 +36,15 @@ export function normalizeSelector(sel) {
     not_escaped_pattern = /(?:[^\\]|(?:^|[^\\])(?:\\\\)+)$/,
     whitespace_pattern = /^\s+$/,
     state_patterns = [
-      /\s+|\/\*|["'>~+\[\(]/g, // general
-      /\s+|\/\*|["'\[\]\(\)]/g, // [..] set
-      /\s+|\/\*|["'\[\]\(\)]/g, // (..) set
+      /\s+|\/\*|["'>~+[(]/g, // general
+      /\s+|\/\*|["'[\]()]/g, // [..] set
+      /\s+|\/\*|["'[\]()]/g, // (..) set
       null, // string literal (placeholder)
       /\*\//g, // comment
     ];
   sel = sel.trim();
 
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     unmatched = "";
 
@@ -87,7 +88,7 @@ export function normalizeSelector(sel) {
           state.push(4);
         }
         // ending a [ ] or ( ) pair?
-        else if (/^[\]\)]$/.test(match[0]) && state.length > 0) {
+        else if (/^[\])]$/.test(match[0]) && state.length > 0) {
           state.pop();
         }
         // handling whitespace or a combinator?

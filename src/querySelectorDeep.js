@@ -28,7 +28,7 @@ export function querySelectorDeep(selector, root = document, allElements = null)
 }
 
 function _querySelectorDeep(selector, findMany, root, allElements = null) {
-    selector = normalizeSelector(selector)
+    selector = normalizeSelector(selector);
     let lightElement = root.querySelector(selector);
 
     if (document.head.createShadowRoot || document.head.attachShadow) {
@@ -56,7 +56,7 @@ function _querySelectorDeep(selector, findMany, root, allElements = null) {
                     .map((entry) => splitByCharacterUnlessQuoted(entry, '>'));
 
             const possibleElementsIndex = splitSelector.length - 1;
-            const lastSplitPart = splitSelector[possibleElementsIndex][splitSelector[possibleElementsIndex].length - 1]
+            const lastSplitPart = splitSelector[possibleElementsIndex][splitSelector[possibleElementsIndex].length - 1];
             const possibleElements = collectAllElementsDeep(lastSplitPart, root, allElements);
             const findElements = findMatchingElement(splitSelector, possibleElementsIndex, root);
             if (findMany) {
@@ -85,18 +85,18 @@ function findMatchingElement(splitSelector, possibleElementsIndex, root) {
         let parent = element;
         let foundElement = false;
         while (parent && !isDocumentNode(parent)) {
-            let foundMatch = true
+            let foundMatch = true;
             if (splitSelector[position].length === 1) {
                 foundMatch = parent.matches(splitSelector[position]);
             } else {
                 // selector is in the format "a > b"
                 // make sure a few parents match in order
-                const reversedParts = ([]).concat(splitSelector[position]).reverse()
-                let newParent = parent
+                const reversedParts = ([]).concat(splitSelector[position]).reverse();
+                let newParent = parent;
                 for (const part of reversedParts) {
                     if (!newParent || !newParent.matches(part)) {
-                        foundMatch = false
-                        break
+                        foundMatch = false;
+                        break;
                     }
                     newParent = findParentOrHost(newParent, root);
                 }
@@ -162,14 +162,15 @@ export function collectAllElementsDeep(selector = null, root, cachedElements = n
         allElements = cachedElements;
     } else {
         const findAllElements = function(nodes) {
-            for (let i = 0, el; el = nodes[i]; ++i) {
+            for (let i = 0; i < nodes.length; i++) {
+                const el = nodes[i];
                 allElements.push(el);
                 // If the element has a shadow root, dig deeper.
                 if (el.shadowRoot) {
                     findAllElements(el.shadowRoot.querySelectorAll('*'));
                 }
             }
-        }
+        };
         if(root.shadowRoot) {
             findAllElements(root.shadowRoot.querySelectorAll('*'));
         }
