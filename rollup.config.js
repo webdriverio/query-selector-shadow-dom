@@ -1,6 +1,6 @@
 import babel from 'rollup-plugin-babel';
 import babelrc from 'babelrc-rollup';
-import { uglify } from 'rollup-plugin-uglify';
+import { terser } from 'rollup-plugin-terser';
 
 const babelConfig = {
     'presets': [
@@ -21,7 +21,7 @@ export default {
             config: babelConfig,
             exclude: 'node_modules/**'
         })),
-        uglify()
+        terser()
     ],
     output: {
         format: 'iife',
