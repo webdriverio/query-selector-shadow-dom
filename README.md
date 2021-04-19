@@ -35,6 +35,9 @@ querySelectorDeep(".dropdown-item:not([hidden])");
 
 Both of the methods above accept a 2nd parameter, see section `Provide alternative node`. This will change the starting element to search from i.e. it will find ancestors of that node that match the query.
 
+## Known limitations
+- Source ordering of results may not be preserved. Due to the nature of how this library works, by breaking down selectors into parts, when using multiple selectors (e.g. split by commas) the results will be based on the order of the query, not the order the result appear in the dom. This is different from the native `querySelectorAll` functionality. You can read more about this here: https://github.com/Georgegriff/query-selector-shadow-dom/issues/54
+
 ## Plugins
 
 ### WebdriverIO
