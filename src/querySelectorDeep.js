@@ -87,7 +87,7 @@ function findMatchingElement(splitSelector, possibleElementsIndex, root) {
         while (parent && !isDocumentNode(parent)) {
             let foundMatch = true;
             if (splitSelector[position].length === 1) {
-                foundMatch = parent.matches(splitSelector[position]);
+                foundMatch = parent.matches(splitSelector[position][0].split('.').reduce((acc, nextSelector) => acc + '.' + CSS.escape(nextSelector)));
             } else {
                 // selector is in the format "a > b"
                 // make sure a few parents match in order
@@ -177,5 +177,5 @@ export function collectAllElementsDeep(selector = null, root, cachedElements = n
         findAllElements(root.querySelectorAll('*'));
     }
 
-    return selector ? allElements.filter(el => el.matches(selector)) : allElements;	}
+    return selector ? allElements.filter(el => el.matches(selector.split('.').reduce((acc, nextSelector) => acc + '.' + CSS.escape(nextSelector)))) : allElements;	}
 
