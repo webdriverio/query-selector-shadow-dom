@@ -1,73 +1,73 @@
 {
-    "name": "query-selector-shadow-dom",
-    "version": "1.0.0",
-    "description": "use querySelector syntax to search for nodes inside of (nested) shadow roots",
-    "main": "src/querySelectorDeep.js",
-    "scripts": {
-        "prepublish": "npm run build",
-        "prebuild": "npm run lint",
-        "lint": "eslint src/**/*.js",
-        "build": "rollup -c",
-        "test": "karma start",
-        "test:ci": "karma start --browsers ChromeHeadless,Firefox",
-        "e2e:protractor": "protractor protractor.conf.js",
-        "watch": "npm-watch",
-        "selenium": "./node_modules/.bin/selenium-standalone install && ./node_modules/.bin/selenium-standalone start"
-    },
-    "watch": {
-        "test": "{src,test}/*.js"
-    },
-    "files": [
-        "Chrome-example.png",
-        "/src/",
-        "dist/querySelectorShadowDom.js",
-        "/plugins/"
-    ],
-    "author": "George Griffiths <GeorgeGriff>",
-    "keywords": [
-        "webcomponents",
-        "puppeteer",
-        "playwright",
-        "automation",
-        "queryselector",
-        "shadowdom",
-        "web-components",
-        "testing",
-        "webdriver",
-        "protractor",
-        "selenium",
-        "webdriverio",
-        "codeceptjs"
-    ],
-    "license": "MIT",
-    "devDependencies": {
-        "@babel/core": "^7.1.2",
-        "@babel/preset-env": "^7.1.0",
-        "@wdio/selenium-standalone-service": "^6.4.0",
-        "@webcomponents/webcomponentsjs": "^2.0.2",
-        "babelrc-rollup": "^3.0.0",
-        "eslint": "^7.19.0",
-        "jasmine": "^3.1.0",
-        "karma": "^6.2.0",
-        "karma-chrome-launcher": "^2.2.0",
-        "karma-coverage": "^2.0.3",
-        "karma-firefox-launcher": "^1.1.0",
-        "karma-jasmine": "^1.1.2",
-        "karma-rollup-preprocessor": "^7.0.6",
-        "karma-spec-reporter": "0.0.32",
-        "npm-watch": "^0.7.0",
-        "protractor": "^7.0.0",
-        "puppeteer": "^5.2.0",
-        "rollup": "^2.41.2",
-        "rollup-plugin-babel": "^4.0.3",
-        "rollup-plugin-istanbul": "^2.0.1",
-        "rollup-plugin-sourcemaps": "^0.4.2",
-        "rollup-plugin-terser": "^7.0.2",
-        "selenium-standalone": "^6.19.0",
-        "webdriverio": "^6.4.5"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Georgegriff/query-selector-shadow-dom"
-    }
+  "name": "query-selector-shadow-dom",
+  "version": "1.0.1",
+  "description": "use querySelector syntax to search for nodes inside of (nested) shadow roots",
+  "main": "src/querySelectorDeep.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "prebuild": "npm run lint",
+    "lint": "eslint src/**/*.js",
+    "build": "rollup -c",
+    "test": "karma start",
+    "test:ci": "karma start --browsers ChromeHeadless,Firefox",
+    "e2e:protractor": "protractor protractor.conf.js",
+    "watch": "npm-watch",
+    "selenium": "./node_modules/.bin/selenium-standalone install && ./node_modules/.bin/selenium-standalone start"
+  },
+  "watch": {
+    "test": "{src,test}/*.js"
+  },
+  "files": [
+    "Chrome-example.png",
+    "/src/",
+    "dist/querySelectorShadowDom.js",
+    "/plugins/"
+  ],
+  "author": "George Griffiths <GeorgeGriff>",
+  "keywords": [
+    "webcomponents",
+    "puppeteer",
+    "playwright",
+    "automation",
+    "queryselector",
+    "shadowdom",
+    "web-components",
+    "testing",
+    "webdriver",
+    "protractor",
+    "selenium",
+    "webdriverio",
+    "codeceptjs"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@wdio/selenium-standalone-service": "^6.4.0",
+    "@webcomponents/webcomponentsjs": "^2.0.2",
+    "babelrc-rollup": "^3.0.0",
+    "eslint": "^7.19.0",
+    "jasmine": "^3.1.0",
+    "karma": "^6.2.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^2.0.3",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-jasmine": "^1.1.2",
+    "karma-rollup-preprocessor": "^7.0.6",
+    "karma-spec-reporter": "0.0.32",
+    "npm-watch": "^0.7.0",
+    "protractor": "^7.0.0",
+    "puppeteer": "^5.2.0",
+    "rollup": "^2.41.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-istanbul": "^2.0.1",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "selenium-standalone": "^6.19.0",
+    "webdriverio": "^6.4.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webdriverio/query-selector-shadow-dom"
+  }
 }
