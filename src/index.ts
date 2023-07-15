@@ -26,7 +26,7 @@ function _querySelectorDeep(selector, findMany, root, allElements = null) {
     selector = normalizeSelector(selector);
     let lightElement = root.querySelector(selector);
 
-    if (document.head.createShadowRoot || document.head.attachShadow) {
+    if (document.head.attachShadow) {
         // no need to do any special if selector matches something specific in light-dom
         if (!findMany && lightElement) {
             return lightElement;
@@ -172,5 +172,5 @@ export function collectAllElementsDeep(selector = null, root, cachedElements = n
         findAllElements(root.querySelectorAll('*'));
     }
 
-    return selector ? allElements.filter(el => el.matches(selector)) : allElements;	}
-
+    return selector ? allElements.filter(el => el.matches(selector)) : allElements;
+}

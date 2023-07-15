@@ -1,6 +1,8 @@
 
-const fs = require("fs");
-const path = require("path");
+import fs from 'fs'
+import path from 'path'
+
+import { querySelectorDeep, querySelectorAllDeep } from '../../index.js'
 
 // load the library in UMD format which self executes and adds window.querySelectorShadowDom
 const querySelectorShadowDomUMD = fs.readFileSync(path.resolve(__dirname, "../../dist/querySelectorShadowDom.js"))

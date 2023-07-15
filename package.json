@@ -17,12 +17,6 @@
   "watch": {
     "test": "{src,test}/*.js"
   },
-  "files": [
-    "Chrome-example.png",
-    "/src/",
-    "dist/querySelectorShadowDom.js",
-    "/plugins/"
-  ],
   "author": "George Griffiths <GeorgeGriff>",
   "keywords": [
     "webcomponents",
