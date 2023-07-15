@@ -12,7 +12,7 @@
   rev-02 incorporate kyle's changes 3/2/42014
 */
 
-export function normalizeSelector(sel) {
+export function normalizeSelector(sel: string) {
   // save unmatched text, if any
   function saveUnmatched() {
     if (unmatched) {
@@ -26,23 +26,23 @@ export function normalizeSelector(sel) {
     }
   }
 
-  var tokens = [],
-    match,
-    unmatched,
-    regex,
-    state = [0],
-    next_match_idx = 0,
-    prev_match_idx,
-    not_escaped_pattern = /(?:[^\\]|(?:^|[^\\])(?:\\\\)+)$/,
-    whitespace_pattern = /^\s+$/,
-    state_patterns = [
-      /\s+|\/\*|["'>~+[(]/g, // general
-      /\s+|\/\*|["'[\]()]/g, // [..] set
-      /\s+|\/\*|["'[\]()]/g, // (..) set
-      null, // string literal (placeholder)
-      /\*\//g, // comment
-    ];
-  sel = sel.trim();
+  const tokens: string[] = []
+  let match: RegExpExecArray | null = null
+  let unmatched: string
+  let regex: RegExp | null
+  let state = [0]
+  let next_match_idx = 0
+  let prev_match_idx: number
+  const not_escaped_pattern = /(?:[^\\]|(?:^|[^\\])(?:\\\\)+)$/
+  const whitespace_pattern = /^\s+$/
+  const state_patterns = [
+    /\s+|\/\*|["'>~+[(]/g, // general
+    /\s+|\/\*|["'[\]()]/g, // [..] set
+    /\s+|\/\*|["'[\]()]/g, // (..) set
+    null, // string literal (placeholder)
+    /\*\//g, // comment
+  ]
+  sel = sel.trim()
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
@@ -50,13 +50,15 @@ export function normalizeSelector(sel) {
 
     regex = state_patterns[state[state.length - 1]];
 
-    regex.lastIndex = next_match_idx;
-    match = regex.exec(sel);
+    if (regex) {
+      regex.lastIndex = next_match_idx;
+      match = regex.exec(sel);
+    }
 
     // matched text to process?
     if (match) {
       prev_match_idx = next_match_idx;
-      next_match_idx = regex.lastIndex;
+      next_match_idx = regex?.lastIndex!;
 
       // collect the previous string chunk not matched before this token
       if (prev_match_idx < next_match_idx - match[0].length) {

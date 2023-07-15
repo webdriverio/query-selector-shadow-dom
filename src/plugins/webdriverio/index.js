@@ -1,10 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const querySelectorAllDeep = fs.readFileSync(path.resolve(__dirname, "../../dist/querySelectorShadowDom.js"))
+import fs from 'node:fs';
+import path from 'node:path';
 
-const selectorFunction = new Function('selector', 'element', `
+const querySelectorAllDeep = fs.readFileSync(path.resolve(__dirname, "../../dist/querySelectorShadowDom.js"));
+
+export const locatorStrategy = new Function('selector', 'element', `
 ${querySelectorAllDeep}
 return querySelectorShadowDom.querySelectorAllDeep(selector, element);
 `);
 
-module.exports.locatorStrategy = selectorFunction;
+export default { locatorStrategy };
