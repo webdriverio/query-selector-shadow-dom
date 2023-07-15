@@ -1,8 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const querySelectorAllDeep = fs.readFileSync(path.resolve(__dirname, "../../dist/querySelectorShadowDom.js"))
+import fs from 'node:fs';
+import path from 'node:path';
 
-module.exports = {
+const querySelectorAllDeep = fs.readFileSync(path.resolve(__dirname, "../../dist/querySelectorShadowDom.js"));
+
+export default {
     name: 'query-selector-shadow-dom',
     onPrepare: function() {
         global.by.addLocator('shadowDomCss', `
@@ -15,4 +16,4 @@ module.exports = {
             return querySelectorShadowDom.querySelectorAllDeep(selector, parentElement || document)
         `);
     }
-}
+};

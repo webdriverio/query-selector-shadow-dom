@@ -1,7 +1,7 @@
-const fs = require("fs");
-const path = require("path");
+import fs from 'node:fs';
+import path from 'node:path';
 
-const querySelectorShadowDomUMD = fs.readFileSync(path.resolve(__dirname, "../../dist/querySelectorShadowDom.js"))
+const querySelectorShadowDomUMD = fs.readFileSync(path.resolve(__dirname, "../../dist/querySelectorShadowDom.js"));
 
 const QueryHandler = {
     queryOne: new Function('element', 'selector', `
@@ -13,4 +13,5 @@ const QueryHandler = {
         return querySelectorShadowDom.querySelectorAllDeep(selector, element);
     `)
 };
-module.exports.QueryHandler = QueryHandler;
+
+export default QueryHandler;

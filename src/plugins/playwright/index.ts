@@ -1,7 +1,8 @@
+import fs from 'node:fs'
+import url from 'node:url'
+import path from 'node:path'
 
-const fs = require("fs");
-const path = require("path");
-
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 // load the library in UMD format which self executes and adds window.querySelectorShadowDom
 const querySelectorShadowDomUMD = fs.readFileSync(path.resolve(__dirname, "../../dist/querySelectorShadowDom.js"))
 
@@ -21,6 +22,5 @@ const engineString =`
         }
     }
 `
-const selectorEngine = new Function("", engineString)
-
-module.exports = { selectorEngine };
+export const selectorEngine = new Function("", engineString)
+export default { selectorEngine }
