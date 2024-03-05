@@ -1,7 +1,7 @@
 exports.config = {
     baseUrl: 'http://localhost:3000',
 
-    chromeDriver: require(`chromedriver/lib/chromedriver`).path,
+    chromeDriver: process.env.CHROMEDRIVER_FILEPATH || require(`chromedriver/lib/chromedriver`).path,
     SELENIUM_PROMISE_MANAGER: false,
     directConnect: true,
 

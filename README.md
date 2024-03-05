@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Georgegriff/query-selector-shadow-dom.svg?branch=main)](https://travis-ci.org/Georgegriff/query-selector-shadow-dom) [![npm version](https://badge.fury.io/js/query-selector-shadow-dom.svg)](https://badge.fury.io/js/query-selector-shadow-dom) [![codecov](https://codecov.io/gh/Georgegriff/query-selector-shadow-dom/branch/main/graph/badge.svg)](https://codecov.io/gh/Georgegriff/query-selector-shadow-dom)
+[![Build Status](https://travis-ci.org/Georgegriff/query-selector-shadow-dom.svg?branch=main)](https://travis-ci.org/Georgegriff/query-selector-shadow-dom) [![npm version](https://badge.fury.io/js/query-selector-shadow-dom.svg)](https://badge.fury.io/js/query-selector-shadow-dom)
 
 # query-selector-shadow-dom
 
@@ -227,7 +227,7 @@ querySelectorShadowDom.querySelectorAllDeep("child", iframe.contentDocument);
 ```
 
 This library does not allow you to query across iframe boundaries, you will need to get a reference to the iframe you want to interact with. </br>
-If your iframe is inside of a shadow root you could cuse `querySelectorDeep` to find the iframe, then pass the `contentDocument` into the 2nd argument of `querySelectorDeep` or `querySelectorAllDeep`.
+If your iframe is inside of a shadow root you could use `querySelectorDeep` to find the iframe, then pass the `contentDocument` into the 2nd argument of `querySelectorDeep` or `querySelectorAllDeep`.
 
 ### Chrome downloads page
 
@@ -258,7 +258,7 @@ If using the polyfills and shady DOM, this library will still work.
 ## Importing
 
 - Shipped as an ES6 module to be included using a bundler of your choice (or not).
-- ES5 version bundled ontop the window as `window.querySelectorShadowDom` available for easy include into a test framework
+- ES5 version bundled on top the window as `window.querySelectorShadowDom` available for easy include into a test framework
 
 ## Running the code locally
 
