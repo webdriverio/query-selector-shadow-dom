@@ -9,7 +9,7 @@
     "lint": "eslint src/**/*.js",
     "build": "rollup -c",
     "test": "karma start",
-    "test:ci": "karma start --browsers ChromeHeadless,Firefox",
+    "test:ci": "karma start --browsers ChromeHeadless,FirefoxHeadless",
     "e2e:protractor": "protractor protractor.conf.js",
     "watch": "npm-watch",
     "selenium": "./node_modules/.bin/selenium-standalone install && ./node_modules/.bin/selenium-standalone start"
