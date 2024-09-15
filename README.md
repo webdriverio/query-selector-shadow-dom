@@ -15,7 +15,7 @@ import {
 
 ## What is a nested shadow root?
 
-![Image of Shadow DOM elements in dev tools](./Chrome-example.png)
+![Image of Shadow DOM elements in dev tools](./.github/assets/chrome-example.png)
 You can see that `.dropdown-item:not([hidden])` (Open downloads folder) is several layers deep in shadow roots, most tools will make you do something like
 
 ```javascript
@@ -107,7 +107,7 @@ const {
 `shadow$` only goes one level deep in a shadow root.
 
 Take this example.
-![Image of Shadow DOM elements in dev tools](./Chrome-example.png)
+![Image of Shadow DOM elements in dev tools](./.github/assets/chrome-example.png)
 You can see that `.dropdown-item:not([hidden])` (Open downloads folder) is several layers deep in shadow roots, but this library will find it, `shadow$` would not.
 You would have to construct a path via css or javascript all the way through to find the right element.
 
@@ -275,3 +275,7 @@ If using the polyfills and shady DOM, this library will still work.
 ### Running the build
 
 `npm run build`
+
+---
+
+Big thanks to [Georgegriff](https://github.com/Georgegriff) for creating and maintaining this project 🎉
