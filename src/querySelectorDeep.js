@@ -103,6 +103,8 @@ function findMatchingElement(splitSelector, possibleElementsIndex, root) {
             }
             if (foundMatch) {
                 position--;
+            } else if (position === possibleElementsIndex) {
+                break;
             }
             parent = findParentOrHost(parent, root);
         }
