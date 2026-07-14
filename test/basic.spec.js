@@ -176,6 +176,64 @@ describe("Basic Suite", function() {
             expect(testComponents.length).toEqual(0);
         });
 
+        it('only returns child elements with "> *"', function() {
+            const containerDiv = document.createElement('div');
+            containerDiv.className = 'my-container';
+            const childDiv = document.createElement('div');
+            childDiv.className = 'my-child';
+            const grandchildDiv = document.createElement('div');
+            grandchildDiv.className = 'my-grandchild';
+            childDiv.appendChild(grandchildDiv);
+            containerDiv.appendChild(childDiv);
+            parent.appendChild(containerDiv);
+
+            const testComponents = querySelectorAllDeep(`.my-container > *`);
+            expect(testComponents.length).toEqual(1);
+            expect(testComponents[0]).toEqual(childDiv);
+        });
+
+        it('only returns child elements with "> *" when crossing shadow DOM boundaries', function() {
+            const innerComponent = document.createElement('div');
+            innerComponent.classList.add('inner-comp');
+            baseComponent.addNested(innerComponent);
+            // Since the inner component is inside a p element in baseComponent's shadow root,
+            // baseComponent > .inner-comp should not match it.
+            const testComponents = querySelectorAllDeep(`.base-comp > .inner-comp`);
+            expect(testComponents.length).toEqual(0);
+        });
+
+        it('handles mix of child and descendant selectors', function() {
+            const containerDiv = document.createElement('div');
+            containerDiv.className = 'my-container';
+            const childDiv = document.createElement('div');
+            childDiv.className = 'my-child';
+            const grandchildDiv = document.createElement('div');
+            grandchildDiv.className = 'my-grandchild';
+            const leafDiv = document.createElement('div');
+            leafDiv.className = 'my-leaf';
+
+            grandchildDiv.appendChild(leafDiv);
+            childDiv.appendChild(grandchildDiv);
+            containerDiv.appendChild(childDiv);
+            parent.appendChild(containerDiv);
+
+            // my-container > my-child my-leaf should match leafDiv
+            const testComponents1 = querySelectorAllDeep(`.my-container > .my-child .my-leaf`);
+            expect(testComponents1.length).toEqual(1);
+            expect(testComponents1[0]).toEqual(leafDiv);
+
+            // my-container my-grandchild > my-leaf should match leafDiv
+            const testComponents2 = querySelectorAllDeep(`.my-container .my-grandchild > .my-leaf`);
+            expect(testComponents2.length).toEqual(1);
+            expect(testComponents2[0]).toEqual(leafDiv);
+
+            // my-container > my-grandchild > my-leaf should not match leafDiv
+            const testComponents3 = querySelectorAllDeep(`.my-container > .my-grandchild > .my-leaf`);
+            expect(testComponents3.length).toEqual(0);
+        });
+
+
+
 
         it('can handle extra white space in selectors', function() {
             const testComponent = createTestComponent(parent, {
