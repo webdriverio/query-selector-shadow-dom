@@ -68,7 +68,7 @@ function _querySelectorDeep(selector, findMany, root, allElements = null) {
         if (!findMany) {
             return lightElement;
         } else {
-            return root.querySelectorAll(selector);
+            return Array.from(root.querySelectorAll(selector));
         }
     }
 
